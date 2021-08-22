@@ -1,0 +1,15 @@
+.header {
+  background-color: #A9DEF9;
+  min-height: 70px;
+
+  .container {
+    height: 100%;
+  }
+
+  &-wrapper {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

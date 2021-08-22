@@ -1,0 +1,25 @@
+.products {
+  display: grid;
+  grid-template-columns: 25rem 25rem 25rem;
+  grid-row-gap: 1rem;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1024px) {
+  .products {
+    grid-template-columns: 17rem 17rem 17rem
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .products {
+    grid-template-columns: 20rem 20rem
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .products {
+    grid-template-columns: 20rem;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,46 @@
+.product {
+  height: 39rem;
+  width: 25rem;
+  border-radius: 0.5rem;
+}
+
+.card-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.card-rating {
+  margin-bottom: 0.4rem;
+
+  span {
+    color: #f0c040;
+    margin-right: 0.2rem;
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .product {
+    width: 17rem;
+    height: 29rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product {
+    width: 20rem;
+    height: 33rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .product {
+    width: 20rem;
+    height: 33rem;
+  }
+}
+

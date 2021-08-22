@@ -1,13 +1,14 @@
 .footer {
-  background-color: #A9DEF9;
+  margin-top: auto;
+  background-color: #A2AEBB;
   min-height: 70px;
 
   .container {
-    height: 100%;
+    min-height: inherit;
   }
 
   &-wrapper {
-    height: inherit;
+    min-height: inherit;
     display: flex;
     flex-direction: column;
     justify-content: center;

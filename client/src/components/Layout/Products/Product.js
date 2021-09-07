@@ -1,31 +1,29 @@
 import React from 'react';
 import {Button, Card} from "react-bootstrap";
 
-import './Product.scss'
+import classes from './Product.module.scss'
 import img from './p1.jpg'
+import Rating from "../Rating/Rating";
 
-const Product = () => {
+const Product = (props) => {
     return (
-        <Card className="product position-relative">
+        <Card className={classes["product"]}>
             <a href='/product'>
                 <Card.Img
-                    className='card-img'
+                    className={classes['card-img']}
                     variant='top'
-                    src={img}
+                    src={props.img}
                 />
             </a>
             <Card.Body>
                 <a href='/product'>
                     <Card.Title>
-                        Nike SLim Shirts
+                        {props.name}
                     </Card.Title>
                 </a>
-                <div className="card-rating">
-                    <span><i className="fa fa-star"></i></span>
-                    <span><i className="fa fa-star"></i></span>
-                    <span><i className="fa fa-star"></i></span>
-                    <span><i className="fa fa-star"></i></span>
-                    <span><i className="fa fa-star"></i></span>
+                <Rating rating={props.rating} reviews={props.reviews} />
+                <div className={classes['price-wrapper']}>
+                    <h5 className={classes.price}>${props.price}</h5>
                 </div>
                 <Button variant='primary'>
                     Add to Cart

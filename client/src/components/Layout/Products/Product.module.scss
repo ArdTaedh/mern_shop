@@ -1,7 +1,8 @@
 .product {
-  height: 39rem;
+  height: 41rem;
   width: 25rem;
   border-radius: 0.5rem;
+  position: relative;
 }
 
 .card-img {
@@ -10,37 +11,28 @@
   border-radius: 0.5rem;
 }
 
-.card-rating {
-  margin-bottom: 0.4rem;
-
-  span {
-    color: #f0c040;
-    margin-right: 0.2rem;
-
-    &:last-child{
-      margin-right: 0;
-    }
-  }
+.price {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1024px) {
   .product {
     width: 17rem;
-    height: 29rem;
+    height: 31rem;
   }
 }
 
 @media screen and (max-width: 768px) {
   .product {
     width: 20rem;
-    height: 33rem;
+    height: 35rem;
   }
 }
 
 @media screen and (max-width: 425px) {
   .product {
     width: 20rem;
-    height: 33rem;
+    height: 35rem;
   }
 }
 

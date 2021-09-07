@@ -1,0 +1,18 @@
+.card-rating {
+  margin-bottom: 0.4rem;
+
+  span {
+    color: #f0c040;
+    margin-right: 0.2rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.reviews {
+  margin-left: 0.3rem;
+  display: inline-block;
+  color: #000;
+}

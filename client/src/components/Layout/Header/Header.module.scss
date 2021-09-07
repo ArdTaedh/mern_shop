@@ -1,0 +1,30 @@
+.header {
+  background-color: #A2AEBB;
+  min-height: 70px;
+
+  .container {
+    min-height: inherit;
+  }
+
+  &-wrapper {
+    min-height: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-nav {
+    display: flex;
+    flex-direction: row;
+
+    &__link {
+      color: #000;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  }
+
+}

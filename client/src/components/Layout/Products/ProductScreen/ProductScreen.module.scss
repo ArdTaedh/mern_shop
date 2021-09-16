@@ -1,0 +1,17 @@
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.divider {
+    font-size: 1.2rem;
+    display: flex;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    align-self: flex-start;
+}
+
+a {
+    text-decoration: none;
+}

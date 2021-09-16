@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
+import ProductScreen from "./components/Layout/Products/ProductScreen/ProductScreen";
 
 const App = () => {
     return (
@@ -13,6 +14,9 @@ const App = () => {
             <Switch>
                 <Route path="/" exact>
                     <Home />
+                </Route>
+                <Route path="/product/:id">
+                    <ProductScreen />
                 </Route>
             </Switch>
         </Router>

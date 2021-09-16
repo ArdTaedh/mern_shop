@@ -13,10 +13,10 @@ const Header = () => {
                     </div>
                     <div className={classes["header-nav"]}>
                         <Nav.Link className={classes["header-nav__link"]}>
-                            Cart
+                            Кошик
                         </Nav.Link>
                         <Nav.Link className={classes["header-nav__link"]}>
-                            Sign in
+                            Увійти
                         </Nav.Link>
                     </div>
                 </div>

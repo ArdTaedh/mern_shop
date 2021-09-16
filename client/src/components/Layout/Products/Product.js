@@ -2,7 +2,6 @@ import React from 'react';
 import {Button, Card} from "react-bootstrap";
 
 import classes from './Product.module.scss'
-import img from './p1.jpg'
 import Rating from "../Rating/Rating";
 
 const Product = (props) => {
@@ -23,10 +22,10 @@ const Product = (props) => {
                 </a>
                 <Rating rating={props.rating} reviews={props.reviews} />
                 <div className={classes['price-wrapper']}>
-                    <h5 className={classes.price}>${props.price}</h5>
+                    <h5 className={classes.price}>₴{props.price}</h5>
                 </div>
                 <Button variant='primary'>
-                    Add to Cart
+                    Додати у кошик
                 </Button>
             </Card.Body>
         </Card>

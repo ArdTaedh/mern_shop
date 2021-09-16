@@ -59,7 +59,7 @@ const Rating = ({rating, reviews}) => {
                 }
             /></span>
             <div className={classes.reviews}>
-                {reviews} reviews
+                {reviews} відгуків
             </div>
         </div>
     );

@@ -1,0 +1,103 @@
+.footer {
+  margin-top: auto;
+  background-color: #A2AEBB;
+  min-height: 70px;
+  padding: 1rem 0;
+
+  .container {
+    min-height: inherit;
+  }
+
+  &-brand__text1 {
+    text-align: center;
+    font-weight: 600;
+  }
+
+  &-wrapper {
+    min-height: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-social {
+    &__brand {
+      font-weight: 600;
+    }
+  }
+}
+
+.social-networks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.insta-logo,
+.youtube-logo,
+.facebook-logo {
+  font-size: 1.4rem;
+}
+
+.payment-methods {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.visa-wrapper {
+  margin-right: 0.7rem;
+}
+
+.visa-icon,
+.mastercard-icon {
+  font-size: 1.6rem;
+}
+
+.footer-contact__wrapper {
+  display: flex;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+
+  & > .button {
+    margin-top: 0.5rem;
+  }
+}
+
+.footer-payment__text {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 425px) {
+  .footer-brand__text1,
+  .footer-payment__text,
+  .footer-social__brand
+  {
+    font-size: 1rem;
+  }
+
+  .footer-brand__text1 {
+    text-align: start;
+  }
+
+  .footer-brand__text2 {
+    font-size: 0.9rem;
+  }
+
+  .footer {
+    &-wrapper {
+      display: grid;
+      grid-template-columns: 9rem 9rem;
+      grid-template-rows: 4rem;
+      align-items: start;
+    }
+  }
+
+  .payment-methods {
+    justify-content: flex-start;
+  }
+}

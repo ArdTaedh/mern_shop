@@ -9,7 +9,8 @@ const Products = () => {
         <div className={classes.products}>
             {data.products.map((product) => (
                 <Product
-                    key={product.id}
+                    key={product._id}
+                    id={product._id}
                     name={product.name}
                     img={product.image}
                     price={product.price}

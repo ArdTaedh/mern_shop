@@ -2,6 +2,10 @@
   background-color: #A2AEBB;
   min-height: 70px;
 
+  &-logo__brand > a {
+    color: black;
+  }
+
   .container {
     min-height: inherit;
   }

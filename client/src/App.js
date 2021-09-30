@@ -6,18 +6,15 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
-import ProductScreen from "./components/Layout/Products/ProductScreen/ProductScreen";
+import ProductScreen from "./pages/ProductScreen/ProductScreen";
+
 
 const App = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/" exact>
-                    <Home />
-                </Route>
-                <Route path="/product/:id">
-                    <ProductScreen />
-                </Route>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/product/:id" component={ProductScreen} />
             </Switch>
         </Router>
     );

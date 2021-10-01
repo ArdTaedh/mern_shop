@@ -1,5 +1,5 @@
 import React from 'react';
-import {Breadcrumb, Button, Card, Col, Container, Image, Row} from "react-bootstrap";
+import {Breadcrumb, Button, Card, Col, Container, Row} from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
 
 import classes from './ProductScreen.module.scss'
@@ -23,8 +23,8 @@ const ProductScreen = (props) => {
                     <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
                 </Breadcrumb>
                 <Row className={classes["product-detail__wrapper"]}>
-                    <Col className={classes["photo-col"]}>
-                        <img className={classes["product-img"]} src={product.image} />
+                    <Col className={classes["photo-col"]} xs={6}>
+                        <img className={classes["product-img"]} src={product.image} alt={product.name} />
                     </Col>
                     <Col className={classes["product-description"]}>
                         <h4 className="product-name">{product.name}</h4>
@@ -36,7 +36,7 @@ const ProductScreen = (props) => {
                         <h6 className={classes['description']}>Опис:</h6>
                         <p>{product.description}</p>
                     </Col>
-                    <Col className="product-actions">
+                    <Col className="product-actions" >
                         <Card className={classes['product-actions__card']}>
                             <div className={classes["product-actions__price"]}>
                                 <div>Ціна: </div>

@@ -20,7 +20,7 @@
 }
 
 .product-img {
-  width: 90%;
+  width: 100%;
 }
 
 .product-price {
@@ -56,12 +56,14 @@
   .product-description {
     margin-top: 1rem;
   }
+
+  .photo-col {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 425px) {
   .product-img {
     width: 100%;
-    display: flex;
-    justify-content: center;
   }
 }

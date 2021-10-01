@@ -1,0 +1,46 @@
+.sidebar {
+  width: 60%;
+  background-color: #A2AEBB;
+}
+
+.sidebar-header {
+  display: none;
+}
+
+.sidebar-body {
+  padding: 0;
+}
+
+.sidebar-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
+.sidebar-nav__item {
+  padding: 0.8rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &:hover{
+    background-color: #b2becb;
+  }
+
+  &:hover .sidebar-nav__link {
+    color: #ffffff;
+  }
+}
+
+.sidebar-nav__link {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+
+  &:hover,
+  &:active {
+    color: #ffffff;
+  }
+}

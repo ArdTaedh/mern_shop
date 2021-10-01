@@ -40,6 +40,17 @@
   font-size: 1.4rem;
 }
 
+.insta-link,
+.youtube-link,
+.facebook-link
+{
+  color: black;
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
 .payment-methods {
   display: flex;
   flex-direction: row;

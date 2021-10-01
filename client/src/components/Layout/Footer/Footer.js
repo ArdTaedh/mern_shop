@@ -22,13 +22,34 @@ const Footer = () => {
                         </h5>
                         <div className={classes["social-networks"]}>
                             <div className="insta-wrapper">
-                                <RiInstagramLine  className={classes['insta-logo']}/>
+                                <a
+                                    className={classes['insta-link']}
+                                    href="https://www.instagram.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    <RiInstagramLine  className={classes['insta-logo']} />
+                                </a>
                             </div>
                             <div className="youtube-wrapper">
-                                <RiYoutubeFill  className={classes['youtube-logo']}/>
+                                <a
+                                    className={classes['youtube-link']}
+                                    href="https://www.youtube.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    <RiYoutubeFill  className={classes['youtube-logo']}/>
+                                </a>
                             </div>
                             <div className="facebook-wrapper">
-                                <RiFacebookCircleFill version='2' className={classes['facebook-logo']}/>
+                                <a
+                                    className={classes['facebook-link']}
+                                    href="https://www.facebook.com/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    <RiFacebookCircleFill version='2' className={classes['facebook-logo']}/>
+                                </a>
                             </div>
                         </div>
                     </div>

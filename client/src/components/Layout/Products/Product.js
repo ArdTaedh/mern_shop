@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Card} from "react-bootstrap";
 
-import classes from './Product.module.scss'
+import classes from './scss/Product.module.scss'
 import Rating from "../Rating/Rating";
 import {Link} from "react-router-dom";
 

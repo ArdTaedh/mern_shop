@@ -4,12 +4,12 @@ import {Container} from "react-bootstrap";
 import './Main.scss'
 import Products from "../Products/Products";
 
-const Main = () => {
+const Main = (props) => {
     return (
         <main className='main'>
             <Container>
                 <div className="main-wrapper">
-                    <Products />
+                    {props.children}
                 </div>
             </Container>
         </main>

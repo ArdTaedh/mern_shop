@@ -3,7 +3,7 @@ import {Alert} from "react-bootstrap";
 
 const MessageBox = (props) => {
     return (
-        <Alert variant={props.variant || 'info'} style={{textAlign: 'center'}}>
+        <Alert variant={props.variant || 'info'}>
             {props.children}
         </Alert>
     );

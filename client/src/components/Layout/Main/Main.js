@@ -2,7 +2,6 @@ import React from 'react';
 import {Container} from "react-bootstrap";
 
 import './Main.scss'
-import Products from "../Products/Products";
 
 const Main = (props) => {
     return (

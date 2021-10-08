@@ -42,10 +42,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .product-actions__status {
   margin: 0.4rem 0 0.5rem 0;
+}
+.badge {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 768px) {

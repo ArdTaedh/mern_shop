@@ -1,5 +1,5 @@
 import React from 'react';
-import {Breadcrumb, Button, Card, Col, Container, Row} from "react-bootstrap";
+import {Badge, Breadcrumb, Button, Card, Col, Container, Row} from "react-bootstrap";
 import { LinkContainer } from 'react-router-bootstrap'
 
 import classes from './ProductScreen.module.scss'
@@ -19,7 +19,9 @@ const ProductScreen = (props) => {
             <Header />
             <Container>
                 <Breadcrumb className={classes.breadcrumb}>
-                    <LinkContainer to="/"><Breadcrumb.Item>Home</Breadcrumb.Item></LinkContainer>
+                    <LinkContainer to="/">
+                        <Breadcrumb.Item>Головна</Breadcrumb.Item>
+                    </LinkContainer>
                     <Breadcrumb.Item active>{product.name}</Breadcrumb.Item>
                 </Breadcrumb>
                 <Row className={classes["product-detail__wrapper"]}>
@@ -43,8 +45,13 @@ const ProductScreen = (props) => {
                                 <div className={classes["price"]}>₴{product.price}</div>
                             </div>
                             <div className={classes["product-actions__status"]}>
-                                <div>Статус</div>
-                                <div>{product.countInStock}</div>
+                                <div>Статус:</div>
+                                <div>
+                                    {product.countInStock
+                                        ? <h5 className={classes.badge}><Badge pill bg="success">У наявності</Badge></h5>
+                                        : <h5 className={classes.badge}><Badge pill bg="danger">Відсутній</Badge></h5>
+                                    }
+                                </div>
                             </div>
                             <Button>Додати у кошик</Button>
                         </Card>

@@ -38,7 +38,9 @@
 }
 
 .product-actions__price,
-.product-actions__status  {
+.product-actions__status,
+.qty-wrapper
+{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -50,6 +52,15 @@
 }
 .badge {
   margin-bottom: 0;
+}
+
+.description {
+  margin-bottom: 0.5rem;
+}
+
+.qty-wrapper {
+  margin-top: .2rem;
+  margin-bottom: .7rem;
 }
 
 @media screen and (max-width: 768px) {

@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
-import ProductScreen from "./pages/ProductScreen/ProductScreen";
+import ProductPage from "./pages/ProductPage/ProductPage";
+import CartPage from "./pages/CartPage/CartPage";
 
 
 const App = () => {
@@ -14,7 +15,8 @@ const App = () => {
         <Router>
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/product/:id" component={ProductScreen} />
+                <Route exact path="/product/:id" component={ProductPage} />
+                <Route exact path="/cart/:id?" component={CartPage} />
             </Switch>
         </Router>
     );

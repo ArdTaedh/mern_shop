@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Badge, Breadcrumb, Button, Card, Col, Container, Row} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
 import {useDispatch, useSelector} from "react-redux";
 
-import classes from './ProductScreen.module.scss'
+import classes from './ProductPage.module.scss'
 import Header from "../../components/Layout/Header/Header";
 import Footer from "../../components/Layout/Footer/Footer";
 import Rating from "../../components/Layout/Rating/Rating";
@@ -11,18 +11,22 @@ import Loading from "../../components/Layout/Loading/Loading";
 import MessageBox from "../../components/Layout/MessageBox/MessageBox";
 import {detailsProduct} from "../../store/actions/productActions";
 
-const ProductScreen = (props) => {
+const ProductPage = (props) => {
     const dispatch = useDispatch()
     const productId = props.match.params.id
 
-    const product = useSelector(state => state.productDetails.product)
-    const loading = useSelector(state => state.productDetails.loading)
-    const error = useSelector(state => state.productDetails.error)
-    // const {loading, error, product} = productDetails
+    const productDetails = useSelector(state => state.productDetails)
+    const { loading, error, product } = productDetails
+
+    const [qty, setQty] = useState(1)
 
     useEffect(() => {
         dispatch(detailsProduct(productId))
     }, [dispatch, productId])
+
+    const addToCartHandler = () => {
+        props.history.push(`/cart/${productId}?qty=${qty}`)
+    }
 
     return (
         <div className={classes["product-screen"]}>
@@ -50,8 +54,8 @@ const ProductScreen = (props) => {
                                             <div>Ціна:</div>
                                             <div className={classes["price"]}>₴{product.price}</div>
                                         </div>
-                                        <h6 className={classes['description']}>Опис:</h6>
-                                        <p>{product.description}</p>
+                                        <h6 className={classes['description-text']}>Опис:</h6>
+                                        <p className={classes.description}>{product.description}</p>
                                     </Col>
                                     <Col className="product-actions">
                                         <Card className={classes['product-actions__card']}>
@@ -60,19 +64,39 @@ const ProductScreen = (props) => {
                                                 <div className={classes["price"]}>₴{product.price}</div>
                                             </div>
                                             <div className={classes["product-actions__status"]}>
-                                                <div>Статус:</div>
-                                                <div>
-                                                    {product.countInStock
+                                                <div className="product-status__text">Статус:</div>
+                                                <div className="product-status">
+                                                    {product.countInStock > 0
                                                         ?
-                                                        <h5 className={classes.badge}><Badge pill bg="success">У
-                                                            наявності</Badge></h5>
-                                                        : <h5 className={classes.badge}><Badge pill
-                                                                                               bg="danger">Відсутній</Badge>
+                                                        <h5 className={classes.badge}><Badge pill bg="success">У наявності</Badge></h5>
+                                                        : <h5 className={classes.badge}><Badge pill bg="danger">Відсутній</Badge>
                                                         </h5>
                                                     }
                                                 </div>
                                             </div>
-                                            <Button>Додати у кошик</Button>
+                                            {
+                                                product.countInStock > 0 && (
+                                                    <>
+                                                        <div className={classes["qty-wrapper"]}>
+                                                            <div className="qty-text">Кількість</div>
+                                                            <div className="qty-input__wrapper">
+                                                                <select
+                                                                    className="qty-input"
+                                                                    value={qty}
+                                                                    onChange={(e) => setQty(e.target.value)}
+                                                                >
+                                                                    {
+                                                                        [...Array(product.countInStock).keys()].map(x => (
+                                                                            <option key={x+1} value={x+1}>{x+1}</option>
+                                                                        ))
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <Button onClick={addToCartHandler}>Додати у кошик</Button>
+                                                    </>
+                                                )
+                                            }
                                         </Card>
                                     </Col>
                                 </Row>
@@ -85,4 +109,4 @@ const ProductScreen = (props) => {
     )
 };
 
-export default ProductScreen;
+export default ProductPage;

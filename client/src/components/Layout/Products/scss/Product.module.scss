@@ -1,5 +1,5 @@
 .product {
-  height: 41rem;
+  height: 38rem;
   width: 25rem;
   border-radius: 0.5rem;
   position: relative;
@@ -18,21 +18,21 @@
 @media screen and (max-width: 1024px) {
   .product {
     width: 17rem;
-    height: 31rem;
+    height: 28rem;
   }
 }
 
 @media screen and (max-width: 768px) {
   .product {
     width: 20rem;
-    height: 35rem;
+    height: 32rem;
   }
 }
 
 @media screen and (max-width: 425px) {
   .product {
     width: 20rem;
-    height: 35rem;
+    height: 32rem;
   }
 }
 

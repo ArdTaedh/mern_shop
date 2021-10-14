@@ -25,9 +25,6 @@ const Product = (props) => {
                 <div className={classes['price-wrapper']}>
                     <h5 className={classes.price}>₴{props.price}</h5>
                 </div>
-                <Button variant='primary'>
-                    Додати у кошик
-                </Button>
             </Card.Body>
         </Card>
     );

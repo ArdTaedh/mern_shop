@@ -10,6 +10,7 @@ import Rating from "../../components/Layout/Rating/Rating";
 import Loading from "../../components/Layout/Loading/Loading";
 import MessageBox from "../../components/Layout/MessageBox/MessageBox";
 import {detailsProduct} from "../../store/actions/productActions";
+import {Helmet} from "react-helmet";
 
 const ProductPage = (props) => {
     const dispatch = useDispatch()
@@ -36,6 +37,10 @@ const ProductPage = (props) => {
                     ? <Loading/>
                     : error ? (<MessageBox variant="danger">{error}</MessageBox>)
                         : (
+                            <>
+                                <Helmet>
+                                    <title>{product.name}</title>
+                                </Helmet>
                             <Container>
                                 <Breadcrumb className={classes.breadcrumb}>
                                     <LinkContainer to="/">
@@ -101,7 +106,7 @@ const ProductPage = (props) => {
                                     </Col>
                                 </Row>
                             </Container>
-
+</>
                         )
             }
             <Footer/>

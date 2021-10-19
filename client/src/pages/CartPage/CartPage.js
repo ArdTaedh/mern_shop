@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import classes from './CartPage.module.scss'
 import Header from "../../components/Layout/Header/Header";
 import Footer from "../../components/Layout/Footer/Footer";
-import {addToCart} from "../../store/actions/cartActions";
+import {addToCart, removeFromCart} from "../../store/actions/cartActions";
 import {Helmet} from "react-helmet";
 import MessageBox from "../../components/Layout/MessageBox/MessageBox";
 import {Link} from "react-router-dom";
@@ -27,7 +27,7 @@ const CartPage = (props) => {
     }, [dispatch, productId, qty])
 
     const removeFromCartHandler = (id) => {
-
+        dispatch(removeFromCart(id))
     }
 
     const checkoutHandler = () => {
@@ -47,7 +47,7 @@ const CartPage = (props) => {
                         {
                             cartItems.length === 0
                                 ? <MessageBox
-                                    className="mt-2"
+                                    className={classes["message-box"]}
                                     variant="info"
                                 >
                                     Кошик порожній
@@ -104,7 +104,6 @@ const CartPage = (props) => {
                                 )
                         }
                     </Col>
-                    {cartItems.length > 0 && (
                         <Col className={classes["checkout-col"]} xs={4}>
                             <Card className={classes["checkout-card"]}>
                                 <div className={classes["checkout-wrapper"]}>
@@ -128,7 +127,6 @@ const CartPage = (props) => {
                                 </div>
                             </Card>
                         </Col>
-                    )}
                 </Row>
             </Container>
             <Footer/>

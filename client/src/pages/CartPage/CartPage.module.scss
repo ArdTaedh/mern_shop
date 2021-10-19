@@ -23,6 +23,14 @@
   width: 100%;
 }
 
+.checkout-col:empty {
+  display: none;
+}
+
+.message-box {
+  margin-top: 0.5rem;
+}
+
 .cart-img__col,
 .cart-name__col,
 .qty-col,

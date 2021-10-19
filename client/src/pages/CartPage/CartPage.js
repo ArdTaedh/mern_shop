@@ -42,7 +42,7 @@ const CartPage = (props) => {
             <Header/>
             <Container>
                 <Row className={classes["cart-wrapper"]}>
-                    <Col className="cart-items__col" xs={12} md={8}>
+                    <Col className={classes["cart-items__col"]} xs={7}>
                         <h2 className="mt-2">Кошик</h2>
                         {
                             cartItems.length === 0
@@ -105,7 +105,7 @@ const CartPage = (props) => {
                         }
                     </Col>
                     {cartItems.length > 0 && (
-                        <Col className={classes["checkout-col"]} xs={6} md={4}>
+                        <Col className={classes["checkout-col"]} xs={4}>
                             <Card className={classes["checkout-card"]}>
                                 <div className={classes["checkout-wrapper"]}>
                                     <div className="subtotal-wrapper">
@@ -113,7 +113,7 @@ const CartPage = (props) => {
                                             Підсумок
                                         </h3>
                                         <h4>
-                                            {cartItems.reduce((a, c) => a + c.qty, 0)} товари : ₴{cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                                            {cartItems.reduce((a, c) => a + c.qty, 0)} товар(и) : ₴{cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
                                         </h4>
                                     </div>
                                     <div>

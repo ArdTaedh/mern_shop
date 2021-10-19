@@ -29,6 +29,17 @@
     background-color: #b2becb;
   }
 
+  &:first-child {
+
+    // .sidebar-nav__link .cart-badge:empty {
+    //  margin: 0;
+    //}
+    //
+    //.sidebar-nav__link {
+    //  margin-left: 1.5rem;
+    //}
+  }
+
   &:hover .sidebar-nav__link {
     color: #ffffff;
   }
@@ -43,4 +54,12 @@
   &:active {
     color: #ffffff;
   }
+}
+
+.cart-badge {
+  background-color: #b2bbc6 !important;
+  color: #000000;
+  border-radius: 50%;
+  align-items: center;
+  font-size: 0.9rem;
 }

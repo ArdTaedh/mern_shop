@@ -62,7 +62,27 @@
   padding: 1rem;
 }
 
+.checkout-btn {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .cart-items__col {
+    width: 65%;
+  }
+
+  .cart-btn {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+  }
+}
+
 @media screen and (max-width: 425px) {
+  .cart-items__col {
+    width: 100%;
+  }
+
   .cart-wrapper {
     flex-direction: column;
   }
@@ -88,5 +108,8 @@
   }
 
   .cart-btn {
+    display: flex;
+    width: 90%;
+    justify-content: center;
   }
 }

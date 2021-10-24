@@ -31,7 +31,8 @@
 .social-networks {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .insta-logo,
@@ -64,6 +65,11 @@
 .visa-icon,
 .mastercard-icon {
   font-size: 1.6rem;
+
+  &:hover {
+    color: #ffffff;
+    cursor: pointer;
+  }
 }
 
 .footer-contact__wrapper {

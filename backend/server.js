@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 import data from './data.js'
 import userRouter from "./routers/userRouter.js";
+import productRouter from "./routers/productRouter.js";
 
 const app = express()
 
@@ -19,21 +20,9 @@ app.get('/', (req, res) => {
     res.send('Сервер запущений')
 })
 
-app.get("/api/products", (req, res) => {
-    res.send(data.products)
-})
-
-app.get("/api/products/:id", (req, res) => {
-    const productId = req.params.id
-    const product = data.products.find(x => x._id === productId)
-    if (product) {
-        res.send(product)
-    } else {
-        res.status(404).send({message: 'Продукт не знайдено'})
-    }
-})
-
 app.use('/api/users', userRouter)
+
+app.use('/api/products', productRouter)
 
 app.use((err, req, res, next) => {
     res.status(500).send({ message: err.message })

@@ -1,13 +1,15 @@
 import express from 'express'
 import mongoose from "mongoose";
+import dotenv from 'dotenv'
 
-import data from './data.js'
 import userRouter from "./routers/userRouter.js";
 import productRouter from "./routers/productRouter.js";
 
 const app = express()
+app.use(express.json())
+dotenv.config()
 
-const uri = "mongodb+srv://admin:<ADMIN_PASSWORD>@<DB_NAME>.ljb4w.mongodb.net/<PROJECT_NAME>?retryWrites=true&w=majority"
+const uri = "mongodb+srv://admin:admin@e-store.ljb4w.mongodb.net/estore?retryWrites=true&w=majority"
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once('open', () => {

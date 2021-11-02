@@ -112,7 +112,7 @@ const CartPage = (props) => {
                                             Підсумок
                                         </h3>
                                         <h4>
-                                            {cartItems.reduce((a, c) => a + c.qty, 0)} товар(и) : ₴{cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                                            {cartItems.reduce((a, c) => a + c.qty, 0)} позицій : ₴{cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
                                         </h4>
                                     </div>
                                     <div>

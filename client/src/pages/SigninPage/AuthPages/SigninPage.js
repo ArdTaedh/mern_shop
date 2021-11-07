@@ -18,11 +18,11 @@ const SigninPage = () => {
                         >
                             <Form.Group>
                                 <Form.Label className={classes['form-label']}>Email</Form.Label>
-                                <Form.Control size="lg" type="email" placeholder="Введіть email" />
+                                <Form.Control className={classes['form-input']} size="lg" type="email" placeholder="Введіть email" />
                             </Form.Group>
                             <Form.Group className="mt-2">
                                 <Form.Label className={[classes['form-label'], classes.second]}>Пароль</Form.Label>
-                                <Form.Control size="lg"  type="password" placeholder="Введіть пароль" />
+                                <Form.Control className={classes['form-input']} size="lg"  type="password" placeholder="Введіть пароль" />
                             </Form.Group>
                             <Button size="lg" className={classes["signin-btn"]} variant="primary" type="submit">
                                 Увійти

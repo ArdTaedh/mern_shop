@@ -5,9 +5,9 @@ import {RiInstagramLine, RiYoutubeFill, RiFacebookCircleFill, RiVisaLine, RiMast
 import classes from './Footer.module.scss'
 
 
-const Footer = () => {
+const Footer = (props) => {
     return (
-        <footer className={classes.footer}>
+        <footer className={classes.footer} style={props.style}>
             <Container className={classes.container}>
                 <div className={classes["footer-wrapper"]}>
                     <div className="footer-brand">

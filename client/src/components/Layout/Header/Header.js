@@ -35,7 +35,7 @@ const Header = () => {
                                 Кошик
                                 { cartItems.length > 0 && <Badge className={classes['cart-badge']}>{cartItems.length}</Badge>}
                             </Nav.Link>
-                            <Nav.Link className={classes["header-nav__link"]}>
+                            <Nav.Link className={classes["header-nav__link"]} as={Link} to="/signin">
                                 Увійти
                             </Nav.Link>
                             <GiHamburgerMenu className={classes.toggle} onClick={showSidebarHandler} />

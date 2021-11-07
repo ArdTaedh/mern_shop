@@ -30,7 +30,13 @@ const Sidebar = (props) => {
                        </Link>
                    </li>
                     <li className={classes["sidebar-nav__item"]} onClick={props.hide}>
-                        <Link className={classes["sidebar-nav__link"]} onClick={props.hide}>Увійти</Link>
+                        <Link
+                            className={classes["sidebar-nav__link"]}
+                            onClick={props.hide}
+                            to="/signin"
+                        >
+                            Увійти
+                        </Link>
                     </li>
                 </ul>
             </Offcanvas.Body>

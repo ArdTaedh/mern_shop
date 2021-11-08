@@ -4,10 +4,14 @@ import {Container, Form, Button, NavLink} from "react-bootstrap";
 
 import classes from './scss/Signin.module.scss'
 import Footer from "../../../components/Layout/Footer/Footer";
+import {Helmet} from "react-helmet";
 
 const SigninPage = () => {
     return (
         <div className={classes["signin-page"]}>
+            <Helmet>
+                <title>Авторизація</title>
+            </Helmet>
             <Header/>
                 <Container className={classes['signin-container']}>
                     <div className={classes["signin-wrapper"]}>

@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
-import {Badge, Container, Nav} from "react-bootstrap";
+import {Badge, Container, Dropdown, Nav} from "react-bootstrap";
 
 
 import classes from './Header.module.scss'
 import {Link} from "react-router-dom";
 import {GiHamburgerMenu} from "react-icons/all";
 import Sidebar from "../Sidebar/Sidebar";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {signout} from "../../../store/actions/userActions";
 
 const Header = () => {
     const [showSidebar, setShowSidebar] = useState(false)
+
+    const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin
 
     const { cartItems } = cart
 
@@ -20,6 +25,10 @@ const Header = () => {
 
     const hideSidebarHandler = () => {
         setShowSidebar(false)
+    }
+
+    const signoutHandler = () => {
+        dispatch(signout())
     }
 
     return (
@@ -35,9 +44,34 @@ const Header = () => {
                                 Кошик
                                 { cartItems.length > 0 && <Badge className={classes['cart-badge']}>{cartItems.length}</Badge>}
                             </Nav.Link>
-                            <Nav.Link className={classes["header-nav__link"]} as={Link} to="/signin">
-                                Увійти
-                            </Nav.Link>
+                            {
+                                userInfo
+                                    ? (
+                                        <Dropdown>
+                                            <Dropdown.Toggle
+                                                variant=""
+                                                className={classes.dropdown}
+                                            >
+                                                {userInfo.name}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu
+                                                className={classes['dropdown-menu']}
+                                            >
+                                                <Dropdown.Item
+                                                    className={classes['dropdown-menu__item']}
+                                                    onClick={signoutHandler}
+                                                >
+                                                    Вийти
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    )
+                                    : (
+                                        <Nav.Link className={classes["header-nav__link"]} as={Link} to="/signin">
+                                            Увійти
+                                        </Nav.Link>
+                                    )
+                            }
                             <GiHamburgerMenu className={classes.toggle} onClick={showSidebarHandler} />
                         </div>
                     </div>

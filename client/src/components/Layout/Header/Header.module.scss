@@ -21,6 +21,7 @@
   &-nav {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     &__link {
       color: #000;
@@ -49,11 +50,40 @@
   font-size: 0.9rem;
 }
 
+.dropdown {
+  border: none;
+  background-color: #A2AEBB;
+  color: black;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &:focus-visible
+  {
+    box-shadow: none;
+    background-color: #A2AEBB;
+    border: none;
+    color: #ffffff;
+  }
+}
+
+.dropdown-menu {
+  padding: 0;
+
+  &__item:active {
+    color: #1e2125;
+    background-color: #e9ecef;
+  }
+}
+
+
+
 @media screen and (max-width: 425px) {
-  .header-nav__link {
+  .header-nav__link,
+  .dropdown
+  {
     display: none;
   }
-
 
   .toggle {
     display: flex;

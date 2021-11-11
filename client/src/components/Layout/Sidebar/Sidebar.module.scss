@@ -29,17 +29,6 @@
     background-color: #b2becb;
   }
 
-  &:first-child {
-
-    // .sidebar-nav__link .cart-badge:empty {
-    //  margin: 0;
-    //}
-    //
-    //.sidebar-nav__link {
-    //  margin-left: 1.5rem;
-    //}
-  }
-
   &:hover .sidebar-nav__link {
     color: #ffffff;
   }
@@ -64,4 +53,32 @@
   border-radius: 50%;
   align-items: center;
   font-size: 0.9rem;
+}
+
+.name-item {
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: center;
+}
+
+.dropdown{
+  margin-top: 0.3rem;
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #aeb7c3;
+  height: 100%;
+  padding: 0;
+}
+
+.dropdown-item {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
 }

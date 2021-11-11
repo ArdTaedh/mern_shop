@@ -1,0 +1,63 @@
+.register-page {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.register-container {
+  min-height: 100%;
+}
+
+.form-brand {
+  text-align: center;
+  margin: 1rem 0 !important;
+}
+
+.register-wrapper {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-form {
+  width: 40%;
+}
+
+.register-btn {
+  margin-top: 0.6rem;
+}
+
+.new-customer {
+  display: flex;
+  margin-top: 0.6rem;
+  gap: 0.3rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .form-brand {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .register-form {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .register-form {
+    width: 100%;
+  }
+
+  .register-btn {
+    margin-top: 0.8rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+  }
+
+  .form-input {
+    font-size: 1.1rem;
+  }
+}

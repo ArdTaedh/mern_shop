@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import Header from "../../../components/Layout/Header/Header";
+import Header from "../../components/Layout/Header/Header";
 import {Container, Form, Button, NavLink} from "react-bootstrap";
 
 import classes from './scss/Signin.module.scss'
-import Footer from "../../../components/Layout/Footer/Footer";
+import Footer from "../../components/Layout/Footer/Footer";
 import {Helmet} from "react-helmet";
 import {useDispatch, useSelector} from "react-redux";
-import {signin} from "../../../store/actions/userActions";
-import Loading from "../../../components/Layout/Loading/Loading";
-import MessageBox from "../../../components/Layout/MessageBox/MessageBox";
+import {signin} from "../../store/actions/userActions";
+import Loading from "../../components/Layout/Loading/Loading";
+import MessageBox from "../../components/Layout/MessageBox/MessageBox";
+import {Link} from "react-router-dom";
 
 const SigninPage = (props) => {
     const [email, setEmail] = useState('')
@@ -58,6 +59,7 @@ const SigninPage = (props) => {
                                     type="email"
                                     placeholder="Введіть email"
                                     onChange={(e) => setEmail(e.target.value)}
+                                    required
                                 />
                             </Form.Group>
                             <Form.Group className="mt-2">
@@ -68,6 +70,7 @@ const SigninPage = (props) => {
                                     type="password"
                                     placeholder="Введіть пароль"
                                     onChange={(e) => setPassword(e.target.value)}
+                                    required
                                 />
                             </Form.Group>
                             <Button size="lg" className={classes["signin-btn"]} variant="primary" type="submit">
@@ -75,7 +78,7 @@ const SigninPage = (props) => {
                             </Button>
                             <div className={classes["new-customer"]}>
                                 <p>Новий покупець?</p>
-                                <NavLink style={{ padding: 0 }}>Стовріть аккаунт</NavLink>
+                                <NavLink style={{ padding: 0 }} as={Link} to={`/register?redirect=${redirect}`}>Стовріть аккаунт</NavLink>
                             </div>
                         </Form>
                     </div>

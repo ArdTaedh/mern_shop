@@ -8,7 +8,8 @@ import {
 import Home from "./pages/Home/Home";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import CartPage from "./pages/CartPage/CartPage";
-import SigninPage from "./pages/SigninPage/AuthPages/SigninPage";
+import SigninPage from "./pages/AuthPages/SigninPage";
+import RegisterPage from "./pages/AuthPages/RegisterPage";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
                 <Route exact path="/product/:id" component={ProductPage} />
                 <Route exact path="/cart/:id?" component={CartPage} />
                 <Route exact path="/signin" component={SigninPage} />
+                <Route exact path="/register" component={RegisterPage} />
             </Switch>
         </Router>
     );

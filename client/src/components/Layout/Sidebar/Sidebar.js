@@ -5,6 +5,7 @@ import classes from './Sidebar.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {signout} from "../../../store/actions/userActions";
+import { IoMdArrowDropdown } from 'react-icons/io'
 
 const Sidebar = (props) => {
     const [dropdown, showDropwdown] = useState(false)
@@ -21,7 +22,7 @@ const Sidebar = (props) => {
     }
 
     let dropdownItems = (
-        <ul className={classes.dropdown}>
+        <ul className={dropdown ? classes['dropdown-active'] : classes.dropdown}>
             <li className={classes['dropdown-item']} onClick={signoutHandler}>Вийти</li>
         </ul>
     )
@@ -50,7 +51,7 @@ const Sidebar = (props) => {
                             userInfo
                                 ? (
                                     <li className={classes['name-item']} onClick={() => showDropwdown(!dropdown)}>
-                                        {userInfo.name}
+                                        {userInfo.name} <IoMdArrowDropdown className={dropdown ? classes['arrow-up'] : classes['arrow-down']} />
                                         {
                                             dropdown && dropdownItems
                                         }

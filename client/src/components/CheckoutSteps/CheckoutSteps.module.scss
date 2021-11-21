@@ -1,0 +1,11 @@
+.checkout-step {
+  font-size: 0.9rem;
+  background-color: #BCD3F2;
+  color: black;
+}
+
+@media screen and (max-width: 425px){
+  .checkout-step {
+    font-size: 0.7rem;
+  }
+}

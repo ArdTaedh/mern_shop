@@ -4,11 +4,11 @@ import {LinkContainer} from 'react-router-bootstrap'
 import {useDispatch, useSelector} from "react-redux";
 
 import classes from './ProductPage.module.scss'
-import Header from "../../components/Layout/Header/Header";
-import Footer from "../../components/Layout/Footer/Footer";
-import Rating from "../../components/Layout/Rating/Rating";
-import Loading from "../../components/Layout/Loading/Loading";
-import MessageBox from "../../components/Layout/MessageBox/MessageBox";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import Rating from "../../components/Rating/Rating";
+import Loading from "../../components/Loading/Loading";
+import MessageBox from "../../components/MessageBox/MessageBox";
 import {detailsProduct} from "../../store/actions/productActions";
 import {Helmet} from "react-helmet";
 

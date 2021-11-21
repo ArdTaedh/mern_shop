@@ -3,13 +3,13 @@ import {Helmet} from "react-helmet";
 import {Button, Container, Form, NavLink} from "react-bootstrap";
 
 import classes from './scss/Register.module.scss'
-import Header from "../../components/Layout/Header/Header";
-import Footer from "../../components/Layout/Footer/Footer";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {register} from "../../store/actions/userActions";
-import Loading from "../../components/Layout/Loading/Loading";
-import MessageBox from "../../components/Layout/MessageBox/MessageBox";
+import Loading from "../../components/Loading/Loading";
+import MessageBox from "../../components/MessageBox/MessageBox";
 
 const RegisterPage = (props) => {
     const [name, setName] = useState('')

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import Header from "../../components/Layout/Header/Header";
+import Header from "../../components/Header/Header";
 import {Container, Form, Button, NavLink} from "react-bootstrap";
 
 import classes from './scss/Signin.module.scss'
-import Footer from "../../components/Layout/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 import {Helmet} from "react-helmet";
 import {useDispatch, useSelector} from "react-redux";
 import {signin} from "../../store/actions/userActions";
-import Loading from "../../components/Layout/Loading/Loading";
-import MessageBox from "../../components/Layout/MessageBox/MessageBox";
+import Loading from "../../components/Loading/Loading";
+import MessageBox from "../../components/MessageBox/MessageBox";
 import {Link} from "react-router-dom";
 
 const SigninPage = (props) => {

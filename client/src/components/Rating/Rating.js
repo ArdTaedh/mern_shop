@@ -11,7 +11,7 @@ const Rating = ({rating, reviews}) => {
                 className={
                     rating >=1
                         ? "fa fa-star"
-                        : rating >=0.5
+                        : rating >= 0.5
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
@@ -20,9 +20,9 @@ const Rating = ({rating, reviews}) => {
             <span>
                 <i
                 className={
-                    rating >=2
+                    rating >= 2
                         ? "fa fa-star"
-                        : rating >=0.5
+                        : rating >= 1.5
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
@@ -33,7 +33,7 @@ const Rating = ({rating, reviews}) => {
                 className={
                     rating >=3
                         ? "fa fa-star"
-                        : rating >=0.5
+                        : rating >=2.5
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
@@ -43,7 +43,7 @@ const Rating = ({rating, reviews}) => {
                 className={
                     rating >=4
                         ? "fa fa-star"
-                        : rating >=0.5
+                        : rating >=3.5
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
@@ -53,7 +53,7 @@ const Rating = ({rating, reviews}) => {
                 className={
                     rating >=5
                         ? "fa fa-star"
-                        : rating >=0.5
+                        : rating >=4.5
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }

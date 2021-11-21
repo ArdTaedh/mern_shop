@@ -4,7 +4,7 @@ import {Badge, Offcanvas} from "react-bootstrap";
 import classes from './Sidebar.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {signout} from "../../../store/actions/userActions";
+import {signout} from "../../store/actions/userActions";
 import { IoMdArrowDropdown } from 'react-icons/io'
 
 const Sidebar = (props) => {

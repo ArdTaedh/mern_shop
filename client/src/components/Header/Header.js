@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import {GiHamburgerMenu} from "react-icons/all";
 import Sidebar from "../Sidebar/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
-import {signout} from "../../../store/actions/userActions";
+import {signout} from "../../store/actions/userActions";
 
 const Header = () => {
     const [showSidebar, setShowSidebar] = useState(false)

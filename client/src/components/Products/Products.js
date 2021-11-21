@@ -5,7 +5,7 @@ import Product from "./Product";
 import Loading from "../Loading/Loading";
 import MessageBox from "../MessageBox/MessageBox";
 import {useDispatch, useSelector} from "react-redux";
-import {listProducts} from "../../../store/actions/productActions";
+import {listProducts} from "../../store/actions/productActions";
 
 const Products = () => {
     const dispatch = useDispatch()

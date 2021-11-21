@@ -3,11 +3,11 @@ import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 
 import classes from './CartPage.module.scss'
-import Header from "../../components/Layout/Header/Header";
-import Footer from "../../components/Layout/Footer/Footer";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import {addToCart, removeFromCart} from "../../store/actions/cartActions";
 import {Helmet} from "react-helmet";
-import MessageBox from "../../components/Layout/MessageBox/MessageBox";
+import MessageBox from "../../components/MessageBox/MessageBox";
 import {Link} from "react-router-dom";
 
 const CartPage = (props) => {

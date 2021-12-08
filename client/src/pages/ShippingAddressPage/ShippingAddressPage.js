@@ -10,10 +10,10 @@ import {setShippingAddress} from "../../store/actions/cartActions";
 
 const ShippingAddressPage = (props) => {
     const userSignin = useSelector(state => state.userSignin)
-    // const cart = useSelector(state => state.cart)
+    const cart = useSelector(state => state.cart)
 
     const { userInfo } = userSignin
-    // const { shippingAddress } = cart
+    const { cartItems } = cart
 
     const [fullName, setFullName] = useState('')
     const [address, setAddress] = useState('')
@@ -24,6 +24,8 @@ const ShippingAddressPage = (props) => {
 
     if (!userInfo) {
         props.history.push('/signin')
+    } else if (cartItems.length === 0) {
+        props.history.push('/')
     }
 
     const submitHandler = (e) => {

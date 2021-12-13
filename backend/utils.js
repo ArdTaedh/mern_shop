@@ -11,3 +11,24 @@ export const generateToken = (user) => {
             expiresIn: '1h'
         })
 }
+
+export const isAuth = (req, res, next) => {
+    const auth = req.headers.authorization;
+    if (auth) {
+        const token = auth.slice(7, auth.length); // Bearer XXXXXX
+        jwt.verify(
+            token,
+            process.env.JWT_SECRET || 'somesecret',
+            (err, decode) => {
+                if (err) {
+                    res.status(401).send({ message: 'Недійсний токен' });
+                } else {
+                    req.user = decode;
+                    next();
+                }
+            }
+        );
+    } else {
+        res.status(401).send({ message: 'Неавторизований' });
+    }
+};

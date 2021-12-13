@@ -7,6 +7,7 @@ import CheckoutSteps from "../../components/CheckoutSteps/CheckoutSteps";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import {savePaymentMethod} from "../../store/actions/cartActions";
+import {Helmet} from "react-helmet";
 
 const PaymentMethodPage = (props) => {
     const [paymentMethod, setPaymentMethod] = useState('PayPal')
@@ -26,10 +27,11 @@ const PaymentMethodPage = (props) => {
         props.history.push('/placeorder')
     }
 
-    console.log(paymentMethod)
-
     return (
         <div className={classes['payment-method__page']}>
+            <Helmet>
+                <title>Метод оплати</title>
+            </Helmet>
             <Header />
             <Container className={classes['payment-container']}>
                 <CheckoutSteps step1={25} step2={25} step3={25} />

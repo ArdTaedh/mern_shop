@@ -7,6 +7,8 @@ import classes from './ShippingAddress.module.scss'
 import {Button, Container, Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {setShippingAddress} from "../../store/actions/cartActions";
+import {Redirect} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 const ShippingAddressPage = (props) => {
     const userSignin = useSelector(state => state.userSignin)
@@ -23,9 +25,9 @@ const ShippingAddressPage = (props) => {
     const dispatch = useDispatch()
 
     if (!userInfo) {
-        props.history.push('/signin')
+        return <Redirect push to='/signin' />
     } else if (cartItems.length === 0) {
-        props.history.push('/')
+        return <Redirect push to='/' />
     }
 
     const submitHandler = (e) => {
@@ -36,6 +38,9 @@ const ShippingAddressPage = (props) => {
 
     return (
         <div className={classes["shipping-page"]}>
+            <Helmet>
+                <title>Адреса доставки</title>
+            </Helmet>
             <Header/>
             <Container className={classes['shipping-container']}>
                 <CheckoutSteps step1={25} step2={25}/>

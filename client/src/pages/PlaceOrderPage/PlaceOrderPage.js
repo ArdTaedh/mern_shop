@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import {Helmet} from "react-helmet";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
 
 import Header from "../../components/Header/Header";
@@ -9,16 +9,33 @@ import CheckoutSteps from "../../components/CheckoutSteps/CheckoutSteps";
 import Footer from "../../components/Footer/Footer";
 
 import classes from './PlaceOrderPage.module.scss'
+import {createOrder} from "../../store/actions/orderActions";
+import {ORDER_CREATE_RESET} from "../../store/constants/orderConstants";
+import Loading from "../../components/Loading/Loading";
+import MessageBox from "../../components/MessageBox/MessageBox";
 
 
-const PlaceOrderPage = () => {
+const PlaceOrderPage = (props) => {
     const cart = useSelector(state => state.cart)
+    cart.totalPrice = cart.cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+    const orderCreate = useSelector(state => state.orderCreate)
+    const { loading, success, error, order } = orderCreate
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if(success) {
+            // <Redirect push to={`/order/${order._id}`} />
+            props.history.push(`/order/${order._id}`)
+            dispatch({type: ORDER_CREATE_RESET})
+        }
+    }, [dispatch, props.history, order, success])
+
 
     if(!cart.paymentMethod)
         return <Redirect push to="/payment" />
 
     const placeOrderHandler = () => {
-
+        dispatch(createOrder({...cart, orderItems: cart.cartItems}))
     }
 
     return (
@@ -34,6 +51,8 @@ const PlaceOrderPage = () => {
                     step3={25}
                     step4={25}
                 />
+                { loading && <Loading /> }
+                { error && <MessageBox variant="danger" style={{marginTop: '1rem'}}>{error}</MessageBox> }
                 <Row className={classes["order-wrapper"]}>
                     <Col className={classes["order-info__wrapper"]} xs={6    }>
                         <Card className={classes["card-order__info"]}>
@@ -117,7 +136,7 @@ const PlaceOrderPage = () => {
                                             Ціна до оплати:
                                         </div>
                                         <span className="order-price">
-                                            ₴{cart.cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                                            ₴{cart.totalPrice}
                                         </span>
                                     </div>
                                 </div>

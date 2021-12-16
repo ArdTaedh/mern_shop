@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Card, Col, Container, Row} from "react-bootstrap";
 import {Helmet} from "react-helmet";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -10,9 +10,13 @@ import classes from './OrderPage.module.scss'
 import {detailsOrder} from "../../store/actions/orderActions";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
+import axios from "axios";
+import {PayPalButton} from "react-paypal-button-v2";
 
 
 const OrderPage = (props) => {
+    const [paypalSDKReady, setPaypalSDKReady] = useState(false)
+
     const dispatch = useDispatch()
     const orderDetails = useSelector(state => state.orderDetails)
 
@@ -20,22 +24,50 @@ const OrderPage = (props) => {
     const {order, loading, error} = orderDetails
 
     useEffect(() => {
-        dispatch(detailsOrder(orderId))
-    }, [dispatch, orderId])
+        const addPapalScript = async () => {
+            const {data} = await axios.get('/api/config/paypal')
+
+            const scriptElement = document.createElement('script')
+
+            scriptElement.type="text/javascript"
+            scriptElement.src=`https://www.paypal.com/sdk/js?client-id=${data}`
+            scriptElement.async = true
+            scriptElement.onload = () => { setPaypalSDKReady(true) }
+
+            document.body.appendChild(scriptElement)
+        }
+
+        if (!order) {
+            dispatch(detailsOrder(orderId))
+        } else {
+            if (!order.isPaid) {
+                if (!window.paypal) {
+                    addPapalScript()
+                } else {
+                    setPaypalSDKReady(true)
+                }
+            }
+        }
+    }, [dispatch, order, orderId, setPaypalSDKReady, paypalSDKReady])
+
+    const successPaymentHandler = () => {
+        //sadasd
+    }
 
     return (
         <div className={classes["order__page"]}>
+            <Header/>
+            <Container className={classes["order__container"]}>
                 {
                     loading
                         ? <Loading/>
                         : error
                             ? <MessageBox variant="danger">{error}</MessageBox>
                             : (<>
-                                <Helmet>
-                                    <title>{`Замовлення: {order._id}`}</title>
-                                </Helmet>
-                                <Header/>
-                                    <Container className={classes["order__container"]}>
+                                    <Helmet>
+                                        <title>Замовлення: {order._id}</title>
+                                    </Helmet>
+
                                         <Row className={classes["order-wrapper"]}>
                                             <Col className={classes["order-info__wrapper"]} xs={6}>
                                                 <Card className={classes["card-order__info"]}>
@@ -123,26 +155,43 @@ const OrderPage = (props) => {
                                                                     Кількість позицій:
                                                                 </div>
                                                                 <span className={classes['order-qty']}>
-                                                    {order.orderItems.reduce((a, c) => a + c.qty, 0)}
-                                                </span>
+                                                                    {order.orderItems.reduce((a, c) => a + c.qty, 0)}
+                                                                </span>
                                                             </div>
                                                             <div className={classes["order-price__wrapper"]}>
                                                                 <div className={classes["order-price__header"]}>
                                                                     Ціна до оплати:
                                                                 </div>
                                                                 <span className="order-price">
-                                                    ₴{order.totalPrice}
-                                                </span>
+                                                                    ₴{order.totalPrice}
+                                                                </span>
                                                             </div>
+                                                            {
+                                                                !order.isPaid && (
+                                                                    <div className={classes["pay-order"]}>
+                                                                        {
+                                                                            !paypalSDKReady
+                                                                                ? <Loading style={{ marginTop: '0.5rem' }} />
+                                                                                : (
+                                                                                    <PayPalButton
+                                                                                        amount={order.totalPrice}
+                                                                                        onSuccess={successPaymentHandler}
+                                                                                    />
+                                                                                )
+                                                                        }
+                                                                    </div>
+                                                                )
+                                                            }
                                                         </div>
                                                     </div>
                                                 </Card>
                                             </Col>
                                         </Row>
-                                    </Container>
+
                                 </>
                             )
                 }
+            </Container>
             <Footer/>
         </div>
     );

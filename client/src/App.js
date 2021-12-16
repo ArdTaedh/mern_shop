@@ -13,6 +13,7 @@ import RegisterPage from "./pages/AuthPages/RegisterPage";
 import ShippingAddressPage from "./pages/ShippingAddressPage/ShippingAddressPage";
 import PaymentMethodPage from "./pages/PaymentMethodPage/PaymentMethodPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage/PlaceOrderPage";
+import OrderPage from "./pages/OrderPage/OrderPage.js";
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
                 <Route exact path="/shipping" component={ShippingAddressPage} />
                 <Route exact path="/payment" component={PaymentMethodPage} />
                 <Route exact path="/placeorder" component={PlaceOrderPage} />
+                <Route exact path="/order/:id" component={OrderPage} />
             </Switch>
         </Router>
     );

@@ -51,7 +51,7 @@ orderRouter.put("/:id/pay", isAuth, expressAsyncHandler(async (req, res) => {
             email_address: req.body.email_address
         }
         const updatedOrder = await order.save()
-        res.send({ message: 'Замовлення оплачено' }, order.save() )
+        res.send({ message: 'Замовлення оплачено', order: updatedOrder })
     } else {
         res.status(404).send({ message: "Замовлення не знайдено" })
     }

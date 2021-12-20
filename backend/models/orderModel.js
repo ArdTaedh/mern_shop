@@ -22,6 +22,12 @@ const orderSchema = new mongoose.Schema(
             postalCode: { type: String, required: true },
         },
         paymentMethod: { type: String, required: true },
+        paymentResult: {
+            id: String,
+            status: String,
+            update_time: String,
+            email_address: String
+        },
         totalPrice: { type: Number, required: true },
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
         isPaid: { type: Boolean, default: false },

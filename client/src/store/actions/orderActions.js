@@ -2,7 +2,7 @@ import {
     ORDER_CREATE_FAIL,
     ORDER_CREATE_REQUEST,
     ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL,
-    ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS
+    ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS
 } from "../constants/orderConstants";
 import axios from "axios";
 import {SET_CART_EMPTY} from "../constants/cartConstants";
@@ -43,6 +43,27 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
     } catch (err) {
         dispatch({
             type: ORDER_DETAILS_FAIL,
+            payload: err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+        })
+    }
+}
+
+export const payOrder = (order, paymentResult) => (dispatch, getState) => {
+    dispatch({ type: ORDER_PAY_REQUEST, payload: { order, paymentResult } })
+    const { userSignin: { userInfo }} = getState()
+
+    try {
+        const { data } = axios.put(`/api/orders/${order._id}/pay`, paymentResult, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({ type: ORDER_PAY_SUCCESS, payload: data })
+    } catch (err) {
+        dispatch({
+            type: ORDER_PAY_FAIL,
             payload: err.response && err.response.data.message
                 ? err.response.data.message
                 : err.message

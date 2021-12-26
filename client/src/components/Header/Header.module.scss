@@ -70,23 +70,28 @@
 
 .dropdown-menu {
   padding: 0;
+  min-width: 7.5rem;
 
-  &__item:active {
-    color: #1e2125;
-    background-color: #e9ecef;
+  & &__item {
+    //text-align: center;
+
+    &:active {
+      color: #1e2125;
+      background-color: #e9ecef;
+    }
   }
 }
 
+  @media screen and (max-width: 425px) {
 
+    .header-nav__link,
+    .dropdown {
+      display: none;
+    }
 
-@media screen and (max-width: 425px) {
-  .header-nav__link,
-  .dropdown
-  {
-    display: none;
+    .toggle {
+      display: block;
+    }
+
   }
 
-  .toggle {
-    display: flex;
-  }
-}

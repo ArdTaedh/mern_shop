@@ -58,6 +58,14 @@ const Header = () => {
                                                 className={classes['dropdown-menu']}
                                             >
                                                 <Dropdown.Item
+                                                    as={Link}
+                                                    to="/orders"
+                                                    className={classes['dropdown-menu__item']}
+                                                >
+                                                    {/*<Link to="/orders" style={{ color: "black" }}>Замовлення</Link>*/}
+                                                    Замовлення
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
                                                     className={classes['dropdown-menu__item']}
                                                     onClick={signoutHandler}
                                                 >

@@ -1,0 +1,11 @@
+.order-history__page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.order-history__container {
+  margin-top: 1rem;
+  height: 100%;
+}

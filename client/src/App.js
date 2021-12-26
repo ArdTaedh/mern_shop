@@ -14,6 +14,7 @@ import ShippingAddressPage from "./pages/ShippingAddressPage/ShippingAddressPage
 import PaymentMethodPage from "./pages/PaymentMethodPage/PaymentMethodPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage/PlaceOrderPage";
 import OrderPage from "./pages/OrderPage/OrderPage.js";
+import OrderHistoryPage from "./pages/OrderHistoryPage/OrderHistoryPage";
 
 const App = () => {
     return (
@@ -28,6 +29,7 @@ const App = () => {
                 <Route exact path="/payment" component={PaymentMethodPage} />
                 <Route exact path="/placeorder" component={PlaceOrderPage} />
                 <Route exact path="/order/:id" component={OrderPage} />
+                <Route exact path="/orders" component={OrderHistoryPage} />
             </Switch>
         </Router>
     );

@@ -5,6 +5,23 @@ import { isAuth } from '../utils.js';
 
 const orderRouter = express.Router();
 
+orderRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id  })
+    res.send(orders)
+}))
+
+orderRouter.get(
+    '/:id',
+    isAuth,
+    expressAsyncHandler(async (req, res) => {
+        const order = await Order.findById(req.params.id)
+        if (order) {
+            res.send(order)
+        } else {
+            res.status(404).send({ message: 'Замовлення не знайдено' })
+        }
+    }))
+
 orderRouter.post(
     '/',
     isAuth,
@@ -27,18 +44,6 @@ orderRouter.post(
     })
 );
 
-orderRouter.get(
-    '/:id',
-    isAuth,
-    expressAsyncHandler(async (req, res) => {
-        const order = await Order.findById(req.params.id)
-        if (order) {
-            res.send(order)
-        } else {
-            res.status(404).send({ message: 'Замовлення не знайдено' })
-        }
-}))
-
 orderRouter.put("/:id/pay", isAuth, expressAsyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id)
     if (order) {
@@ -56,5 +61,6 @@ orderRouter.put("/:id/pay", isAuth, expressAsyncHandler(async (req, res) => {
         res.status(404).send({ message: "Замовлення не знайдено" })
     }
 }))
+
 
 export default orderRouter;

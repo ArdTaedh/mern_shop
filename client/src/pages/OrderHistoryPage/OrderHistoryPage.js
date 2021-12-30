@@ -9,7 +9,6 @@ import {Button, Container, Table} from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 
 import classes from './OrderHistoryPage.module.scss'
-import {Redirect} from "react-router-dom";
 import {listMineOrders} from "../../store/actions/orderActions";
 import moment from "moment";
 
@@ -37,9 +36,9 @@ const OrderHistoryPage = (props) => {
                                 </Helmet>
                                 <Header />
                                 <Container className={classes['order-history__container']}>
-                                    <Table className="table">
-                                        <thead>
-                                            <tr>
+                                    <Table className={classes.table} responsive>
+                                        <thead className={classes['table-head']}>
+                                            <tr className={classes['table-row']}>
                                                 <th>ID</th>
                                                 <th>Дата</th>
                                                 <th>Ціна</th>
@@ -48,18 +47,21 @@ const OrderHistoryPage = (props) => {
                                                 <th>Дії</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody className={classes['table-body']}>
                                             {
 
 
                                                 orders.map(order => (
-                                                    <tr key={order._id}>
-                                                        <td>{order._id}</td>
-                                                        <td>{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
-                                                        <td>{order.totalPrice}</td>
-                                                        <td>{order.isPaid ? moment(order.paidAt).format("DD-MM-YYYY HH:mm") : "Не оплачено"}</td>
-                                                        <td>{order.isDelivered ? order.isDelivered : "Не доставлено"}</td>
-                                                        <td>
+                                                    <tr
+                                                        key={order._id}
+                                                        className={classes['table-row']}
+                                                    >
+                                                        <td datatype="ID">{order._id}</td>
+                                                        <td datatype="Дата">{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
+                                                        <td datatype="Ціна">{order.totalPrice}</td>
+                                                        <td datatype="Оплачено">{order.isPaid ? moment(order.paidAt).format("DD-MM-YYYY HH:mm") : "Не оплачено"}</td>
+                                                        <td datatype="Доставлено">{order.isDelivered ? order.isDelivered : "Не доставлено"}</td>
+                                                        <td datatype="Дії">
                                                             <Button
                                                                 type="button"
                                                                 size="sm"

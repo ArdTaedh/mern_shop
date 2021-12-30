@@ -14,7 +14,7 @@ import moment from "moment";
 
 const OrderHistoryPage = (props) => {
     const orderMineList = useSelector(state => state.orderMineList)
-    const { loading, error, orders } = orderMineList
+    const {loading, error, orders} = orderMineList
 
     const dispatch = useDispatch()
 
@@ -26,7 +26,7 @@ const OrderHistoryPage = (props) => {
         <div className={classes["order-history__page"]}>
             {
                 loading
-                    ? <Loading />
+                    ? <Loading/>
                     : error
                         ? <MessageBox variant="danger">{error}</MessageBox>
                         : (
@@ -34,49 +34,69 @@ const OrderHistoryPage = (props) => {
                                 <Helmet>
                                     <title>Замовлення</title>
                                 </Helmet>
-                                <Header />
+                                <Header/>
                                 <Container className={classes['order-history__container']}>
+                                    <h2 className="mb-2">Історія замовлень</h2>
                                     <Table className={classes.table} responsive>
                                         <thead className={classes['table-head']}>
-                                            <tr className={classes['table-row']}>
-                                                <th>ID</th>
-                                                <th>Дата</th>
-                                                <th>Ціна</th>
-                                                <th>Оплачено</th>
-                                                <th>Доставлено</th>
-                                                <th>Дії</th>
-                                            </tr>
+                                        <tr className={classes['table-row']}>
+                                            <th>ID</th>
+                                            <th>Дата</th>
+                                            <th>Ціна</th>
+                                            <th>Оплачено</th>
+                                            <th>Доставлено</th>
+                                            <th>Дії</th>
+                                        </tr>
                                         </thead>
                                         <tbody className={classes['table-body']}>
-                                            {
+                                        {
 
 
-                                                orders.map(order => (
-                                                    <tr
-                                                        key={order._id}
-                                                        className={classes['table-row']}
-                                                    >
-                                                        <td datatype="ID">{order._id}</td>
-                                                        <td datatype="Дата">{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
-                                                        <td datatype="Ціна">{order.totalPrice}</td>
-                                                        <td datatype="Оплачено">{order.isPaid ? moment(order.paidAt).format("DD-MM-YYYY HH:mm") : "Не оплачено"}</td>
-                                                        <td datatype="Доставлено">{order.isDelivered ? order.isDelivered : "Не доставлено"}</td>
-                                                        <td datatype="Дії">
-                                                            <Button
-                                                                type="button"
-                                                                size="sm"
-                                                                onClick={()=> {props.history.push(`/order/${order._id}`)}}
-                                                            >
-                                                                Деталі
-                                                            </Button>
-                                                        </td>
-                                                    </tr>
-                                                ))
-                                            }
+                                            orders.map(order => (
+                                                <tr
+                                                    key={order._id}
+                                                    className={classes['table-row']}
+                                                >
+                                                    <td datatype="ID">{order._id}</td>
+                                                    <td datatype="Дата">{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
+                                                    <td datatype="Ціна">{order.totalPrice}</td>
+                                                    <td datatype="Оплачено">
+                                                        {order.isPaid
+                                                            ? (<MessageBox className={classes.success} variant="success">
+                                                                    {moment(order.paidAt).format("DD-MM-YYYY HH:mm")}
+                                                                </MessageBox>)
+                                                            :  (<MessageBox className={classes.success} variant="danger">
+                                                                    Не оплачено
+                                                                </MessageBox>)
+                                                        }
+                                                    </td>
+                                                    <td datatype="Доставлено">
+                                                        {order.isDelivered
+                                                            ? (<MessageBox className={classes.success} variant="success">
+                                                                {moment(order.isDelivered).format("DD-MM-YYYY HH:mm")}
+                                                            </MessageBox>)
+                                                            :  (<MessageBox className={classes.success} variant="danger">
+                                                                Не доставлено
+                                                            </MessageBox>)
+                                                        }
+                                                    </td>
+                                                    <td datatype="Дії">
+                                                        <Button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                props.history.push(`/order/${order._id}`)
+                                                            }}
+                                                        >
+                                                            Деталі
+                                                        </Button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
                                         </tbody>
                                     </Table>
                                 </Container>
-                                <Footer />
+                                <Footer/>
                             </>
                         )
             }

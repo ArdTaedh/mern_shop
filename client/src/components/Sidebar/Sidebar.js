@@ -24,6 +24,7 @@ const Sidebar = (props) => {
     let dropdownItems = (
         <ul className={dropdown ? classes['dropdown-active'] : classes.dropdown}>
             <li className={classes['dropdown-item']}><Link className={classes['dropdown-item__link']} to="/orders">Замовлення</Link></li>
+            <li className={classes['dropdown-item']}><Link className={classes['dropdown-item__link']} to="/profile">Профіль</Link></li>
             <li className={classes['dropdown-item']} onClick={signoutHandler}>Вийти</li>
         </ul>
     )

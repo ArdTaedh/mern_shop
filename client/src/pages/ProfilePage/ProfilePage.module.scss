@@ -1,0 +1,33 @@
+.profile-page {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.user-form {
+  width: 50%;
+}
+
+.name-control,
+.email-control,
+.password-control,
+.confirm-password__control
+{
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 425px) {
+  .user-form {
+    width: 90%;
+  }
+}

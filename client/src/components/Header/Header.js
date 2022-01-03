@@ -62,8 +62,14 @@ const Header = () => {
                                                     to="/orders"
                                                     className={classes['dropdown-menu__item']}
                                                 >
-                                                    {/*<Link to="/orders" style={{ color: "black" }}>Замовлення</Link>*/}
                                                     Замовлення
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    as={Link}
+                                                    to="/profile"
+                                                    className={classes['dropdown-menu__item']}
+                                                >
+                                                    Профіль
                                                 </Dropdown.Item>
                                                 <Dropdown.Item
                                                     className={classes['dropdown-menu__item']}

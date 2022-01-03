@@ -12,6 +12,7 @@
 
 .table {
   width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 .alert, .success {
@@ -19,8 +20,14 @@
   margin-bottom: 0.5rem;
 }
 
+.breadcrumb {
+  margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 768px) {
   .table {
+    margin-bottom: 0;
+
     & >:not(:first-child) {
       border-top: none;
     }

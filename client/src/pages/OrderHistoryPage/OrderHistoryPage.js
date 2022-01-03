@@ -5,12 +5,13 @@ import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import Header from "../../components/Header/Header";
 import {Helmet} from "react-helmet";
-import {Button, Container, Table} from "react-bootstrap";
+import {Breadcrumb, Button, Container, Table} from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 
 import classes from './OrderHistoryPage.module.scss'
 import {listMineOrders} from "../../store/actions/orderActions";
 import moment from "moment";
+import {LinkContainer} from "react-router-bootstrap";
 
 const OrderHistoryPage = (props) => {
     const orderMineList = useSelector(state => state.orderMineList)
@@ -36,6 +37,12 @@ const OrderHistoryPage = (props) => {
                                 </Helmet>
                                 <Header/>
                                 <Container className={classes['order-history__container']}>
+                                    <Breadcrumb className={classes.breadcrumb}>
+                                        <LinkContainer to="/">
+                                            <Breadcrumb.Item>Головна</Breadcrumb.Item>
+                                        </LinkContainer>
+                                        <Breadcrumb.Item active>Історія замовлень</Breadcrumb.Item>
+                                    </Breadcrumb>
                                     <h2 className="mb-2">Історія замовлень</h2>
                                     <Table className={classes.table} responsive>
                                         <thead className={classes['table-head']}>
@@ -63,11 +70,11 @@ const OrderHistoryPage = (props) => {
                                                     <td datatype="Оплачено">
                                                         {order.isPaid
                                                             ? (<MessageBox className={classes.success} variant="success">
-                                                                    {moment(order.paidAt).format("DD-MM-YYYY HH:mm")}
-                                                                </MessageBox>)
-                                                            :  (<MessageBox className={classes.success} variant="danger">
-                                                                    Не оплачено
-                                                                </MessageBox>)
+                                                                {moment(order.paidAt).format("DD-MM-YYYY HH:mm")}
+                                                            </MessageBox>)
+                                                            : (<MessageBox className={classes.success} variant="danger">
+                                                                Не оплачено
+                                                            </MessageBox>)
                                                         }
                                                     </td>
                                                     <td datatype="Доставлено">
@@ -75,7 +82,7 @@ const OrderHistoryPage = (props) => {
                                                             ? (<MessageBox className={classes.success} variant="success">
                                                                 {moment(order.isDelivered).format("DD-MM-YYYY HH:mm")}
                                                             </MessageBox>)
-                                                            :  (<MessageBox className={classes.success} variant="danger">
+                                                            : (<MessageBox className={classes.success} variant="danger">
                                                                 Не доставлено
                                                             </MessageBox>)
                                                         }

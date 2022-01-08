@@ -12,6 +12,7 @@ import {
 } from "../constants/orderConstants";
 import axios from "axios";
 import {SET_CART_EMPTY} from "../constants/cartConstants";
+import {signout} from "./userActions";
 
 export const createOrder = (order) => async (dispatch, getState) => {
     dispatch({ type: ORDER_CREATE_REQUEST, payload: order })
@@ -89,11 +90,13 @@ export const listMineOrders = () => async (dispatch, getState) => {
         })
         dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data })
     } catch (err) {
-        dispatch({
-            type: ORDER_MINE_LIST_FAIL,
-            payload: err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
-        })
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message;
+        dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message })
+
+        if(message === 'Недійсний токен') {
+            dispatch(signout())
+        }
     }
 }

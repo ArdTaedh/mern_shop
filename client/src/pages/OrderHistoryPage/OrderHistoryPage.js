@@ -25,6 +25,8 @@ const OrderHistoryPage = (props) => {
 
     return (
         <div className={classes["order-history__page"]}>
+            <Header/>
+            <Container className={classes['order-history__container']}>
             {
                 loading
                     ? <Loading/>
@@ -35,8 +37,6 @@ const OrderHistoryPage = (props) => {
                                 <Helmet>
                                     <title>Замовлення</title>
                                 </Helmet>
-                                <Header/>
-                                <Container className={classes['order-history__container']}>
                                     <Breadcrumb className={classes.breadcrumb}>
                                         <LinkContainer to="/">
                                             <Breadcrumb.Item>Головна</Breadcrumb.Item>
@@ -102,12 +102,12 @@ const OrderHistoryPage = (props) => {
                                         }
                                         </tbody>
                                     </Table>
-                                </Container>
-                                <Footer/>
+
                             </>
                         )
             }
-
+            </Container>
+            <Footer/>
         </div>
     );
 };

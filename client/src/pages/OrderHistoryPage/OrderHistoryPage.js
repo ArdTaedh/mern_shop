@@ -32,7 +32,8 @@ const OrderHistoryPage = (props) => {
                     ? <Loading/>
                     : error
                         ? <MessageBox variant="danger">{error}</MessageBox>
-                        : (
+                        : orders.length < 0
+                            ? (
                             <>
                                 <Helmet>
                                     <title>Замовлення</title>
@@ -105,6 +106,7 @@ const OrderHistoryPage = (props) => {
 
                             </>
                         )
+                        : (<MessageBox variant="info">У вас немає замовлень</MessageBox>)
             }
             </Container>
             <Footer/>

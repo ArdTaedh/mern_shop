@@ -84,8 +84,50 @@ const Header = () => {
                                         <Nav.Link className={classes["header-nav__link"]} as={Link} to="/signin">
                                             Увійти
                                         </Nav.Link>
-                                    )
-                            }
+                                    )}
+                            { userInfo && userInfo.isAdmin && (
+                                // <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
+                                <Dropdown>
+                                    <Dropdown.Toggle
+                                        variant=""
+                                        className={classes.dropdown}
+                                    >
+                                        Admin
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu
+                                        className={classes['dropdown-menu']}
+                                    >
+                                        <Dropdown.Item
+                                            as={Link}
+                                            to="/dashboard"
+                                            className={classes['dropdown-menu__item']}
+                                        >
+                                            Панель інструментів
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                            as={Link}
+                                            to="/product-list"
+                                            className={classes['dropdown-menu__item']}
+                                        >
+                                            Продукти
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                            as={Link}
+                                            to="/order-list"
+                                            className={classes['dropdown-menu__item']}
+                                        >
+                                            Замовлення
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                            as={Link}
+                                            to="/user-list"
+                                            className={classes['dropdown-menu__item']}
+                                        >
+                                            Користувачі
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            )}
                             <GiHamburgerMenu className={classes.toggle} onClick={showSidebarHandler} />
                         </div>
                     </div>

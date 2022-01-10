@@ -17,6 +17,8 @@ import OrderPage from "./pages/OrderPage/OrderPage.js";
 import OrderHistoryPage from "./pages/OrderHistoryPage/OrderHistoryPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
+import ProductListPage from "./pages/ProductListPage/ProductListPage";
 
 const App = () => {
 
@@ -34,6 +36,7 @@ const App = () => {
                 <Route exact path="/order/:id" component={OrderPage} />
                 <Route exact path="/orders" component={OrderHistoryPage} />
                 <PrivateRoute exact path="/profile" component={ProfilePage} />
+                <AdminRoute exact path="/product-list" component={ProductListPage} />
             </Switch>
         </Router>
     );

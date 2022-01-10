@@ -32,7 +32,7 @@ const OrderHistoryPage = (props) => {
                     ? <Loading/>
                     : error
                         ? <MessageBox variant="danger">{error}</MessageBox>
-                        : orders.length < 0
+                        : orders.length > 0
                             ? (
                             <>
                                 <Helmet>

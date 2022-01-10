@@ -55,15 +55,31 @@
   font-size: 0.9rem;
 }
 
+.signout {
+  text-align: center;
+}
+
 .dropdown-item {
   padding: 0.3rem 0;
   font-size: 1.1rem;
+  width: 100%;
+
+  &:hover{
+    background-color: #b2becb;
+  }
+
+  &:hover .dropdown-item__link {
+    color: #ffffff;
+  }
 }
 
 .dropdown-item__link {
   text-decoration: none;
   color: black;
-
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .sidebar {

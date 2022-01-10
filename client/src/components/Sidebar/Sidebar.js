@@ -1,5 +1,6 @@
 import React from 'react';
 import {Accordion, Badge, Offcanvas} from "react-bootstrap";
+import classNames from "classnames";
 
 import classes from './Sidebar.module.scss'
 import {Link} from "react-router-dom";
@@ -49,9 +50,12 @@ const Sidebar = (props) => {
                                             <li className={classes['dropdown-item']}><Link
                                                 className={classes['dropdown-item__link']} to="/orders">Замовлення</Link>
                                             </li>
-                                            <li className={classes['dropdown-item']}><Link
-                                                className={classes['dropdown-item__link']} to="/profile">Профіль</Link></li>
-                                            <li className={classes['dropdown-item']} onClick={signoutHandler}>Вийти</li>
+                                            <li className={classes['dropdown-item']}>
+                                                <Link className={classes['dropdown-item__link']} to="/profile">
+                                                    Профіль
+                                                </Link>
+                                            </li>
+                                            <li className={classNames(classes['dropdown-item'], classes.signout)} onClick={signoutHandler}>Вийти</li>
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
@@ -74,17 +78,25 @@ const Sidebar = (props) => {
                                 <Accordion.Item eventKey="0" className={classes['sidebar-accordion__item']}>
                                     <Accordion.Button className={classes['sidebar-accordion__btn']}>Admin</Accordion.Button>
                                     <Accordion.Body className={classes['accordion-body']}>
-                                        <li className={classes['dropdown-item']}><Link
-                                            className={classes['dropdown-item__link']} to="/dashboard">Панель
-                                            Інструментів</Link></li>
-                                        <li className={classes['dropdown-item']}><Link
-                                            className={classes['dropdown-item__link']} to="/product-list">Продукти</Link>
+                                        <li className={classes['dropdown-item']}>
+                                            <Link className={classes['dropdown-item__link']} to="/dashboard">
+                                                Панель Інструментів
+                                            </Link>
                                         </li>
-                                        <li className={classes['dropdown-item']}><Link
-                                            className={classes['dropdown-item__link']} to="/order-list">Замовлення</Link>
+                                        <li className={classes['dropdown-item']}>
+                                            <Link className={classes['dropdown-item__link']} to="/product-list">
+                                                Продукти
+                                            </Link>
                                         </li>
-                                        <li className={classes['dropdown-item']}><Link
-                                            className={classes['dropdown-item__link']} to="/user-list">Користувачі</Link>
+                                        <li className={classes['dropdown-item']}>
+                                            <Link className={classes['dropdown-item__link']} to="/order-list">
+                                                Замовлення
+                                            </Link>
+                                        </li>
+                                        <li className={classes['dropdown-item']}>
+                                            <Link className={classes['dropdown-item__link']} to="/user-list">
+                                                Користувачі
+                                            </Link>
                                         </li>
                                     </Accordion.Body>
                                 </Accordion.Item>

@@ -5,6 +5,13 @@
   justify-content: space-between;
 }
 
+.product-header {
+  margin: 1rem 0 0.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .product-actions {
   display: flex;
   flex-direction: row;

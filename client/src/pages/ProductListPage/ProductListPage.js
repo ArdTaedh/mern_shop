@@ -2,24 +2,42 @@ import React, {useEffect} from 'react';
 import {Helmet} from "react-helmet";
 import {Button, Container, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {listProducts} from "../../store/actions/productActions";
+import {createProduct, listProducts} from "../../store/actions/productActions";
 
 import classes from './ProductListPage.module.scss'
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
+import {PRODUCT_CREATE_RESET} from "../../store/constants/productConstants";
 
 
 
 const ProductListPage = (props) => {
     const dispatch = useDispatch()
+
     const productList = useSelector(state => state.productList)
     const {loading, error, products} = productList
 
+    const productCreate = useSelector(state => state.productCreate)
+    const {
+        loading: loadingCreate,
+        error: errorCreate,
+        success: successCreate,
+        product: createdProduct
+    } = productCreate
+
     useEffect(() => {
+        if (successCreate) {
+            dispatch({ type: PRODUCT_CREATE_RESET })
+            props.history.push(`/product/${createdProduct._id}/edit`)
+        }
         dispatch(listProducts())
-    }, [dispatch])
+    }, [dispatch, createdProduct, props.history, successCreate])
+
+    const createHandler = () => {
+        dispatch(createProduct())
+    }
 
     const deleteHandler = () => {
 
@@ -32,7 +50,17 @@ const ProductListPage = (props) => {
                 <Helmet>
                     <title>Продукти</title>
                 </Helmet>
-                <h3 className="my-2">Продукти</h3>
+                <div className={classes["product-header"]}>
+                    <h3 className="">Продукти</h3>
+                    <Button
+                        type="button"
+                        onClick={createHandler}
+                    >
+                        Стоврити
+                    </Button>
+                </div>
+                { loadingCreate && <Loading /> }
+                { errorCreate && <MessageBox variant="danger">{error}</MessageBox> }
                 {
                     loading
                         ? <Loading/>

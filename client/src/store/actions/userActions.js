@@ -1,4 +1,6 @@
 import {
+    USER_CHECK_FAIL,
+    USER_CHECK_REQUEST, USER_CHECK_SUCCESS,
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS,
     USER_LOGOUT, USER_REGISTER_FAIL,
@@ -9,11 +11,11 @@ import {
 } from "../constants/userConstants";
 import axios from "axios";
 
-export const signin = ( email, password ) => async (dispatch) => {
-    dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password }})
+export const signin = (email, password) => async (dispatch) => {
+    dispatch({type: USER_SIGNIN_REQUEST, payload: {email, password}})
     try {
-        const { data } = await axios.post('/api/users/signin', { email, password })
-        dispatch({ type: USER_SIGNIN_SUCCESS, payload: data })
+        const {data} = await axios.post('/api/users/signin', {email, password})
+        dispatch({type: USER_SIGNIN_SUCCESS, payload: data})
         localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
@@ -26,21 +28,21 @@ export const signin = ( email, password ) => async (dispatch) => {
     }
 }
 
-export const signout = () => dispatch =>{
+export const signout = () => dispatch => {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('cartItems')
     localStorage.removeItem('shippingAddress')
 
-    dispatch({ type: USER_LOGOUT })
+    dispatch({type: USER_LOGOUT})
     document.location.href = '/';
 }
 
-export const register  = ( name, email, password ) => async (dispatch) => {
-    dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password }})
+export const register = (name, email, password) => async (dispatch) => {
+    dispatch({type: USER_SIGNIN_REQUEST, payload: {email, password}})
     try {
-        const { data } = await axios.post('/api/users/register', { name, email, password })
-        dispatch({ type: USER_REGISTER_SUCCESS, payload: data })
-        dispatch({ type: USER_SIGNIN_SUCCESS, payload: data })
+        const {data} = await axios.post('/api/users/register', {name, email, password})
+        dispatch({type: USER_REGISTER_SUCCESS, payload: data})
+        dispatch({type: USER_SIGNIN_SUCCESS, payload: data})
         localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
@@ -53,45 +55,76 @@ export const register  = ( name, email, password ) => async (dispatch) => {
     }
 }
 
-export const detailsUser = (userId) => async(dispatch, getState) => {
-    dispatch({ type: USER_DETAILS_REQUEST, payload: userId })
+export const detailsUser = (userId) => async (dispatch, getState) => {
+    dispatch({type: USER_DETAILS_REQUEST, payload: userId})
 
-    const { userSignin: { userInfo } } = getState()
+    const {userSignin: {userInfo}} = getState()
 
     try {
-        const { data } = await axios.get(`/api/users/${userId}`, {
+        const {data} = await axios.get(`/api/users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
-        dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
+        dispatch({type: USER_DETAILS_SUCCESS, payload: data})
     } catch (err) {
+        const message = err.response && err.response.data.message
+                                                ? err.response.data.message
+                                                : err.message
         dispatch({
             type: USER_DETAILS_FAIL,
-            payload: err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
+            payload: message
         })
+        if (message === 'Недійсний токен') {
+            dispatch(signout())
+        }
+    }
+}
+
+export const checkUserToken = (userId) => async (dispatch, getState) => {
+    dispatch({type: USER_CHECK_REQUEST, payload: userId})
+
+    const {userSignin: {userInfo}} = getState()
+
+    try {
+        const {data} = await axios.get(`/api/users/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        const {token} = userInfo
+        dispatch({type: USER_CHECK_SUCCESS, payload: token})
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message
+        dispatch({
+            type: USER_CHECK_FAIL,
+            payload: message
+        })
+        if (message === 'Недійсний токен') {
+            dispatch(signout())
+        }
     }
 }
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {
-    dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user })
+    dispatch({type: USER_UPDATE_PROFILE_REQUEST, payload: user})
 
-    const { userSignin: { userInfo }} = getState();
+    const {userSignin: {userInfo}} = getState();
 
     try {
-        const { data } = await axios.put(`/api/users/profile`, user, {
-            headers: { Authorization: `Bearer ${userInfo.token}` }
+        const {data} = await axios.put(`/api/users/profile`, user, {
+            headers: {Authorization: `Bearer ${userInfo.token}`}
         })
-        dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data })
-        dispatch({ type: USER_SIGNIN_SUCCESS, payload: data })
+        dispatch({type: USER_UPDATE_PROFILE_SUCCESS, payload: data})
+        dispatch({type: USER_SIGNIN_SUCCESS, payload: data})
         localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (err) {
         const message = err.response && err.response.data.message
-                            ? err.response.data.message
-                            : err.message;
-        dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: message })
+            ? err.response.data.message
+            : err.message;
+        dispatch({type: USER_UPDATE_PROFILE_FAIL, payload: message})
     }
 
 }

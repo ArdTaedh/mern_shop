@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -19,8 +19,21 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminRoute from "./components/AdminRoute";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
+import {useDispatch, useSelector} from "react-redux";
+import {checkUserToken} from "./store/actions/userActions";
 
 const App = () => {
+    const dispatch = useDispatch()
+
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin
+
+    useEffect(() => {
+        if (userInfo) {
+            dispatch(checkUserToken(userInfo._id))
+        }
+        return
+    }, [dispatch, userInfo])
 
     return (
         <Router>

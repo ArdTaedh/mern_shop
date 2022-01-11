@@ -1,0 +1,21 @@
+.product-edit__page {
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-edit__container {
+  margin-top: 1rem;
+  min-height: 100%;
+}
+
+.form-header {
+  margin-bottom: 1rem !important;
+}
+
+.edit-form__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

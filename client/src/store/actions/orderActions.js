@@ -94,7 +94,6 @@ export const listMineOrders = () => async (dispatch, getState) => {
             ? err.response.data.message
             : err.message;
         dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message })
-
         if(message === 'Недійсний токен') {
             dispatch(signout())
         }

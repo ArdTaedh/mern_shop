@@ -10,6 +10,7 @@ import {
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS
 } from "../constants/productConstants";
+import {signout} from "./userActions";
 
 export const listProducts = () => async (dispatch) => {
     dispatch({
@@ -18,8 +19,14 @@ export const listProducts = () => async (dispatch) => {
     try {
         const { data } = await axios.get('/api/products')
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
-    } catch (error) {
-        dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message })
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message;
+        dispatch({ type: PRODUCT_LIST_FAIL, payload: message })
+        if(message === 'Недійсний токен') {
+            dispatch(signout())
+        }
     }
 }
 

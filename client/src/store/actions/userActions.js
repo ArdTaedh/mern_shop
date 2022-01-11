@@ -92,8 +92,9 @@ export const checkUserToken = (userId) => async (dispatch, getState) => {
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
+        // eslint-disable-next-line
         const {token} = userInfo
-        dispatch({type: USER_CHECK_SUCCESS, payload: token})
+        dispatch({type: USER_CHECK_SUCCESS, payload: data})
     } catch (err) {
         const message = err.response && err.response.data.message
             ? err.response.data.message
@@ -123,8 +124,13 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     } catch (err) {
         const message = err.response && err.response.data.message
             ? err.response.data.message
-            : err.message;
-        dispatch({type: USER_UPDATE_PROFILE_FAIL, payload: message})
-    }
-
+            : err.message
+        dispatch({
+            type: USER_UPDATE_PROFILE_FAIL,
+            payload: message
+        })
+        if (message === 'Недійсний токен') {
+            dispatch(signout())
+        }
+}
 }

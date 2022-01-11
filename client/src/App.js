@@ -21,6 +21,7 @@ import AdminRoute from "./components/AdminRoute";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import {useDispatch, useSelector} from "react-redux";
 import {checkUserToken} from "./store/actions/userActions";
+import ProductEditPage from "./pages/ProductEditPage/ProductEditPage";
 
 const App = () => {
     const dispatch = useDispatch()
@@ -50,6 +51,7 @@ const App = () => {
                 <Route exact path="/orders" component={OrderHistoryPage} />
                 <PrivateRoute exact path="/profile" component={ProfilePage} />
                 <AdminRoute exact path="/product-list" component={ProductListPage} />
+                <AdminRoute exact path="/product/:id/edit" component={ProductEditPage} />
             </Switch>
         </Router>
     );

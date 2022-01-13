@@ -50,6 +50,8 @@ const ProductListPage = (props) => {
                 <Helmet>
                     <title>Продукти</title>
                 </Helmet>
+                { loadingCreate && <Loading className="mt-3" /> }
+                { errorCreate && <MessageBox variant="danger" className="mt-3">{errorCreate}</MessageBox> }
                 <div className={classes["product-header"]}>
                     <h3 className="">Продукти</h3>
                     <Button
@@ -59,8 +61,6 @@ const ProductListPage = (props) => {
                         Стоврити
                     </Button>
                 </div>
-                { loadingCreate && <Loading /> }
-                { errorCreate && <MessageBox variant="danger">{error}</MessageBox> }
                 {
                     loading
                         ? <Loading/>
@@ -95,14 +95,6 @@ const ProductListPage = (props) => {
                                                     {product.brand}
                                                 </td>
                                                 <td datatype="Дії">
-                                                    {/*<Button*/}
-                                                    {/*    type="button"*/}
-                                                    {/*    onClick={() => {*/}
-                                                    {/*        props.history.push(`/order/${order._id}`)*/}
-                                                    {/*    }}*/}
-                                                    {/*>*/}
-                                                    {/*    Деталі*/}
-                                                    {/*</Button>*/}
                                                     <div className={classes["product-actions"]}>
                                                         <Button
                                                             type="button"
@@ -130,7 +122,6 @@ const ProductListPage = (props) => {
                 }
             </Container>
             <Footer/>
-
         </div>
     );
 };

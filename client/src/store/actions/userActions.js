@@ -87,14 +87,15 @@ export const checkUserToken = (userId) => async (dispatch, getState) => {
     const {userSignin: {userInfo}} = getState()
 
     try {
+        // eslint-disable-next-line
         const {data} = await axios.get(`/api/users/${userId}`, {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`
             }
         })
-        // eslint-disable-next-line
+
         const {token} = userInfo
-        dispatch({type: USER_CHECK_SUCCESS, payload: data})
+        dispatch({type: USER_CHECK_SUCCESS, payload: token})
     } catch (err) {
         const message = err.response && err.response.data.message
             ? err.response.data.message

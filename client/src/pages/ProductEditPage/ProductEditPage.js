@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 
 import classes from './ProductEditPage.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {detailsProduct} from "../../store/actions/productActions";
+import {detailsProduct, updateProduct} from "../../store/actions/productActions";
 import Header from "../../components/Header/Header";
 import {Button, Container, Form} from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
+import {Helmet} from "react-helmet";
+import {PRODUCT_UPDATE_RESET} from "../../store/constants/productConstants";
 
 const ProductEditPage = (props) => {
     const productId = props.match.params.id
@@ -25,8 +27,16 @@ const ProductEditPage = (props) => {
     const productDetails = useSelector((state) => state.productDetails);
     const {loading, error, product} = productDetails;
 
+    const productUpdate = useSelector(state => state.productUpdate)
+    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
+
     useEffect(() => {
-        if (!product || product._id !== productId) {
+        if(successUpdate) {
+            // props.history.push('/product-list');
+            window.location = '/product-list'
+        }
+        if (!product || product._id !== productId || successUpdate) {
+            dispatch({ type: PRODUCT_UPDATE_RESET })
             dispatch(detailsProduct(productId))
         } else {
             setName(product.name)
@@ -37,12 +47,30 @@ const ProductEditPage = (props) => {
             setBrand(product.brand)
             setDescription(product.description)
         }
-    }, [product, dispatch, productId])
+    }, [product, dispatch, productId, successUpdate, props.history])
+
+    const submitHandler = (e) => {
+        e.preventDefault()
+
+        dispatch(updateProduct({
+            _id: productId,
+            name,
+            brand,
+            image,
+            price,
+            category,
+            countInStock,
+            description
+        }))
+
+    }
 
     return (
         <div className={classes["product-edit__page"]}>
             <Header/>
             <Container className={classes['product-edit__container']}>
+                {loadingUpdate && <Loading />}
+                {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
                 {
                     loading
                         ? <Loading/>
@@ -50,9 +78,12 @@ const ProductEditPage = (props) => {
                             ? <MessageBox variant="danger">{error}</MessageBox>
                             : (
                                 <div className={classes["edit-form__wrapper"]}>
+                                    <Helmet>
+                                        <title>Змінити продукт</title>
+                                    </Helmet>
                                     <Form
                                         className={classes['product-edit__form']}
-                                        // onSubmit={submitHandler}
+                                        onSubmit={submitHandler}
                                     >
                                         <h3 className={classes['form-header']}>Продукт {product._id}</h3>
                                         <Form.Group>
@@ -133,7 +164,7 @@ const ProductEditPage = (props) => {
                                                 onChange={(e) => setDescription(e.target.value)}
                                             />
                                         </Form.Group>
-                                        <Button className="mt-2">Оновити</Button>
+                                        <Button className="mt-2" type="submit">Оновити</Button>
                                     </Form>
                                 </div>
                             )

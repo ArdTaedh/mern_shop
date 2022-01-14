@@ -10,8 +10,10 @@ import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import {Helmet} from "react-helmet";
 import {PRODUCT_UPDATE_RESET} from "../../store/constants/productConstants";
+import axios from "axios";
 
 const ProductEditPage = (props) => {
+    const dispatch = useDispatch()
     const productId = props.match.params.id
 
     const [name, setName] = useState('')
@@ -22,13 +24,17 @@ const ProductEditPage = (props) => {
     const [brand, setBrand] = useState('')
     const [description, setDescription] = useState('')
 
-    const dispatch = useDispatch()
+    const [loadingUpload, setLoadingUpload] = useState(false)
+    const [errorUpload, setErrorUpload] = useState(false)
 
     const productDetails = useSelector((state) => state.productDetails);
     const {loading, error, product} = productDetails;
 
     const productUpdate = useSelector(state => state.productUpdate)
     const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
+
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin
 
     useEffect(() => {
         if(successUpdate) {
@@ -62,7 +68,28 @@ const ProductEditPage = (props) => {
             countInStock,
             description
         }))
+    }
 
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]
+        const bodyFormData = new FormData()
+
+        bodyFormData.append('image', file)
+        setLoadingUpload(true)
+
+        try {
+            const { data } = await axios.post('/api/uploads', bodyFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${userInfo.token}`,
+                },
+            })
+            setImage(data)
+            setLoadingUpload(false)
+        } catch (err) {
+            setErrorUpload(err.message)
+            setLoadingUpload(false)
+        }
     }
 
     return (
@@ -103,7 +130,7 @@ const ProductEditPage = (props) => {
                                                 className={classes['form-input']}
                                                 size="lg"
                                                 type="text"
-                                                placeholder="Введіть назву продукту"
+                                                placeholder="Введіть ціну продукту"
                                                 value={price}
                                                 onChange={(e) => setPrice(e.target.value)}
                                             />
@@ -114,11 +141,17 @@ const ProductEditPage = (props) => {
                                                 className={classes['form-input']}
                                                 size="lg"
                                                 type="text"
-                                                placeholder="Введіть назву продукту"
+                                                placeholder="Оберіть фото продукту"
                                                 value={image}
                                                 onChange={(e) => setImage(e.target.value)}
+                                                disabled
                                             />
-                                            {/*<Form.Control type="file" />*/}
+                                        </Form.Group>
+                                        <Form.Group controlId="formFile" className="mb-3">
+                                            {/*<Form.Label>Default file input example</Form.Label>*/}
+                                            <Form.Control className="mt-3" type="file" onChange={uploadFileHandler} />
+                                            {loadingUpload && <Loading />}
+                                            {errorUpload && <MessageBox variant="danger">{errorUpload}</MessageBox> }
                                         </Form.Group>
                                         <Form.Group className="mt-2">
                                             <Form.Label className={classes['form-label']}>Категорія</Form.Label>
@@ -126,7 +159,7 @@ const ProductEditPage = (props) => {
                                                 className={classes['form-input']}
                                                 size="lg"
                                                 type="text"
-                                                placeholder="Введіть назву продукту"
+                                                placeholder="Введіть категорію продукту"
                                                 value={category}
                                                 onChange={(e) => setCategory(e.target.value)}
                                             />
@@ -137,7 +170,7 @@ const ProductEditPage = (props) => {
                                                 className={classes['form-input']}
                                                 size="lg"
                                                 type="number"
-                                                placeholder="Введіть назву продукту"
+                                                placeholder="Введіть кількість товару на складі"
                                                 value={countInStock}
                                                 onChange={(e) => setCountInStock(e.target.value)}
                                             />

@@ -12,7 +12,6 @@ import MessageBox from "../../components/MessageBox/MessageBox";
 import {PRODUCT_CREATE_RESET} from "../../store/constants/productConstants";
 
 
-
 const ProductListPage = (props) => {
     const dispatch = useDispatch()
 

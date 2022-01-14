@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {Helmet} from "react-helmet";
 import {Button, Container, Table} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {createProduct, listProducts} from "../../store/actions/productActions";
+import {createProduct, deleteProduct, listProducts} from "../../store/actions/productActions";
 
 import classes from './ProductListPage.module.scss'
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
-import {PRODUCT_CREATE_RESET} from "../../store/constants/productConstants";
+import {PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET} from "../../store/constants/productConstants";
 
 
 const ProductListPage = (props) => {
@@ -26,20 +26,34 @@ const ProductListPage = (props) => {
         product: createdProduct
     } = productCreate
 
+    const productDelete = useSelector(state => state.productDelete)
+    const {
+        loading: loadingDelete,
+        success: successDelete,
+        error: errorDelete
+    } = productDelete
+
     useEffect(() => {
         if (successCreate) {
             dispatch({ type: PRODUCT_CREATE_RESET })
             props.history.push(`/product/${createdProduct._id}/edit`)
         }
+
+        if (successDelete) {
+            dispatch({ type: PRODUCT_DELETE_RESET })
+        }
+
         dispatch(listProducts())
-    }, [dispatch, createdProduct, props.history, successCreate])
+    }, [dispatch, createdProduct, props.history, successCreate, successDelete])
 
     const createHandler = () => {
         dispatch(createProduct())
     }
 
-    const deleteHandler = () => {
-
+    const deleteHandler = (product) => {
+        if (window.confirm('Ви впевнені що хочете видалити товар?')) {
+            dispatch(deleteProduct(product._id));
+        }
     }
 
     return (
@@ -49,6 +63,9 @@ const ProductListPage = (props) => {
                 <Helmet>
                     <title>Продукти</title>
                 </Helmet>
+                { loadingDelete && <Loading className="mt-3" /> }
+                { errorDelete && <MessageBox variant="danger" className="mt-3">{errorDelete}</MessageBox> }
+
                 { loadingCreate && <Loading className="mt-3" /> }
                 { errorCreate && <MessageBox variant="danger" className="mt-3">{errorCreate}</MessageBox> }
                 <div className={classes["product-header"]}>

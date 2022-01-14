@@ -147,9 +147,8 @@ const ProductEditPage = (props) => {
                                                 disabled
                                             />
                                         </Form.Group>
-                                        <Form.Group controlId="formFile" className="mb-3">
-                                            {/*<Form.Label>Default file input example</Form.Label>*/}
-                                            <Form.Control className="mt-3" type="file" onChange={uploadFileHandler} />
+                                        <Form.Group controlId="formFile" className="mt-3">
+                                            <Form.Control type="file" onChange={uploadFileHandler} />
                                             {loadingUpload && <Loading />}
                                             {errorUpload && <MessageBox variant="danger">{errorUpload}</MessageBox> }
                                         </Form.Group>

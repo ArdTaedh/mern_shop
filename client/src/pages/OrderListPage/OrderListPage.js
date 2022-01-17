@@ -95,10 +95,12 @@ const OrderListPage = (props) => {
                                                         </td>
                                                         <td datatype="Доставлено">
                                                             {order.isDelivered
-                                                                ? (<MessageBox className={classes.success}
-                                                                               variant="success">
-                                                                    {moment(order.isDelivered).format("DD-MM-YYYY HH:mm")}
-                                                                </MessageBox>)
+                                                                ? (<MessageBox
+                                                                        className={classes.success}
+                                                                        variant="success"
+                                                                    >
+                                                                    Доставлено {moment(order.deliveredAt).format("DD-MM-YYYY HH:mm")}
+                                                                    </MessageBox>)
                                                                 : (<MessageBox className={classes.success} variant="danger">
                                                                     Не доставлено
                                                                 </MessageBox>)

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Breadcrumb, Card, Col, Container, Row} from "react-bootstrap";
+import {Breadcrumb, Button, Card, Col, Container, Row} from "react-bootstrap";
 import {Helmet} from "react-helmet";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -7,26 +7,33 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import classes from './OrderPage.module.scss'
-import {detailsOrder, payOrder} from "../../store/actions/orderActions";
+import {deliverOrder, detailsOrder, payOrder} from "../../store/actions/orderActions";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import axios from "axios";
 import {PayPalButton} from "react-paypal-button-v2";
-import {ORDER_PAY_RESET} from "../../store/constants/orderConstants";
+import {ORDER_DELIVER_RESET, ORDER_PAY_RESET} from "../../store/constants/orderConstants";
 import moment from "moment";
 import {LinkContainer} from "react-router-bootstrap";
 
 
 const OrderPage = (props) => {
+    const dispatch = useDispatch()
+    const orderId = props.match.params.id
+
     const [paypalSDKReady, setPaypalSDKReady] = useState(false)
 
-    const dispatch = useDispatch()
     const orderDetails = useSelector(state => state.orderDetails)
-    const orderPay = useSelector(state => state.orderPay)
-
-    const orderId = props.match.params.id
     const {order, loading, error} = orderDetails
+
+    const orderPay = useSelector(state => state.orderPay)
     const {error: errorPay, success: successPay, loading: loadingPay} = orderPay
+
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin
+
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const {error: errorDeliver, success: successDeliver, loading: loadingDeliver} = orderPay
 
     useEffect(() => {
         const addPapalScript = async () => {
@@ -44,8 +51,9 @@ const OrderPage = (props) => {
             document.body.appendChild(scriptElement)
         }
 
-        if (!order || successPay || (order && order._id !== orderId)) {
+        if (!order || successPay || successDeliver || (order && order._id !== orderId)) {
             dispatch({type: ORDER_PAY_RESET})
+            dispatch({type: ORDER_DELIVER_RESET})
             dispatch(detailsOrder(orderId))
         } else {
             if (!order.isPaid) {
@@ -56,10 +64,15 @@ const OrderPage = (props) => {
                 }
             }
         }
-    }, [dispatch, order, orderId, paypalSDKReady, successPay])
+    }, [dispatch, order, orderId, paypalSDKReady, successPay, successDeliver])
 
     const successPaymentHandler = (paymentResult) => {
         dispatch(payOrder(order, paymentResult))
+    }
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order._id))
+        window.location.reload(false)
     }
 
     return (
@@ -112,8 +125,12 @@ const OrderPage = (props) => {
                                                     </div>
                                                     <div className={classes["is-delivered"]}>
                                                         {order.isDelivered
-                                                            ? <MessageBox className={classes.success}
-                                                                          variant="success">Доставлено {order.deliveredAt}</MessageBox>
+                                                            ? <MessageBox
+                                                                className={classes.success}
+                                                                variant="success"
+                                                            >
+                                                                Доставлено {moment(order.deliveredAt).format("DD-MM-YYYY HH:mm")}
+                                                        </MessageBox>
                                                             : <MessageBox className={classes.alert} variant="danger">Не
                                                                 доставлено</MessageBox>
                                                         }
@@ -208,6 +225,18 @@ const OrderPage = (props) => {
                                                                                 </>
                                                                             )
                                                                     }
+                                                                </div>
+                                                            )
+                                                        }
+                                                        {
+                                                            userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                                                <div className="mt-2">
+                                                                    <Button
+                                                                        variant="success"
+                                                                        onClick={deliverHandler}
+                                                                    >
+                                                                        Доставити замовлення
+                                                                    </Button>
                                                                 </div>
                                                             )
                                                         }

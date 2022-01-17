@@ -11,7 +11,7 @@ orderRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
 }))
 
 orderRouter.get('/mine', isAuth, expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id  })
+    const orders = await Order.find({user: req.user._id})
     res.send(orders)
 }))
 
@@ -23,7 +23,7 @@ orderRouter.get(
         if (order) {
             res.send(order)
         } else {
-            res.status(404).send({ message: 'Замовлення не знайдено' })
+            res.status(404).send({message: 'Замовлення не знайдено'})
         }
     }))
 
@@ -32,7 +32,7 @@ orderRouter.post(
     isAuth,
     expressAsyncHandler(async (req, res) => {
         if (req.body.orderItems.length === 0) {
-            res.status(400).send({ message: 'Порожній кошик' });
+            res.status(400).send({message: 'Порожній кошик'});
         } else {
             const order = new Order({
                 orderItems: req.body.orderItems,
@@ -44,7 +44,7 @@ orderRouter.post(
             const createdOrder = await order.save();
             res
                 .status(201)
-                .send({ message: 'Нове замовлення', order: createdOrder });
+                .send({message: 'Нове замовлення', order: createdOrder});
         }
     })
 );
@@ -61,11 +61,21 @@ orderRouter.put("/:id/pay", isAuth, expressAsyncHandler(async (req, res) => {
             email_address: req.body.email_address
         }
         const updatedOrder = await order.save()
-        res.send({ message: 'Замовлення оплачено', order: updatedOrder })
+        res.send({message: 'Замовлення оплачено', order: updatedOrder})
     } else {
-        res.status(404).send({ message: "Замовлення не знайдено" })
+        res.status(404).send({message: "Замовлення не знайдено"})
     }
 }))
 
+orderRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const order = Order.findById(req.params.id)
+
+    if (order) {
+        const deletedOrder = await order.remove()
+        res.send({message: 'Замовлення було видалено', order: deletedOrder})
+    } else {
+        res.status(404).send({message: "Замовлення не знайдено"})
+    }
+}))
 
 export default orderRouter;

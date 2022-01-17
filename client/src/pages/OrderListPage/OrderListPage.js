@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {listOrders} from "../../store/actions/orderActions";
+import {deleteOrder, listOrders} from "../../store/actions/orderActions";
 import classes from "./OrderListPage.module.scss";
 import Header from "../../components/Header/Header";
 import {Breadcrumb, Button, Container, Table} from "react-bootstrap";
@@ -10,18 +10,26 @@ import {Helmet} from "react-helmet";
 import {LinkContainer} from "react-router-bootstrap";
 import moment from "moment";
 import Footer from "../../components/Footer/Footer";
+import {ORDER_DELETE_RESET} from "../../store/constants/orderConstants";
 
 const OrderListPage = (props) => {
     const dispatch = useDispatch()
+
     const orderList = useSelector(state => state.orderList)
     const {error, loading, orders} = orderList
 
+    const orderDelete = useSelector(state => state.orderDelete)
+    const {error: errorDelete, loading: loadingDelete, success: successDelete} = orderDelete
+
     useEffect(() => {
+        dispatch({ type: ORDER_DELETE_RESET })
         dispatch(listOrders())
-    }, [dispatch])
+    }, [dispatch, successDelete])
 
     const deleteHandler = (order) => {
-
+        if (window.confirm('Ви впевнені що хочете видалити замовлення?')) {
+            dispatch(deleteOrder(order._id))
+        }
     }
 
     return (
@@ -46,6 +54,9 @@ const OrderListPage = (props) => {
                                             <Breadcrumb.Item active>Історія замовлень</Breadcrumb.Item>
                                         </Breadcrumb>
                                         <h2 className="mb-2">Історія замовлень</h2>
+                                        {loadingDelete && <Loading />}
+                                        {errorDelete && <MessageBox variant="danger">{orderDelete}</MessageBox>}
+
                                         <Table className={classes.table} responsive>
                                             <thead className={classes['table-head']}>
                                             <tr className={classes['table-row']}>

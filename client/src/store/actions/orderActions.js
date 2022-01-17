@@ -1,7 +1,7 @@
 import {
     ORDER_CREATE_FAIL,
     ORDER_CREATE_REQUEST,
-    ORDER_CREATE_SUCCESS,
+    ORDER_CREATE_SUCCESS, ORDER_DELETE_FAIL, ORDER_DELETE_REQUEST, ORDER_DELETE_SUCCESS,
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS, ORDER_LIST_FAIL, ORDER_LIST_REQUEST, ORDER_LIST_SUCCESS, ORDER_MINE_LIST_FAIL,
@@ -121,4 +121,28 @@ export const listOrders = () => async (dispatch, getState) => {
             dispatch(signout())
         }
     }
+}
+
+export const deleteOrder = orderId => async (dispatch, getState) => {
+    dispatch({ type: ORDER_DELETE_REQUEST, payload: orderId })
+
+    const { userSignin: { userInfo } } = getState()
+
+    try {
+        const { data } = await axios.delete(`/api/orders/${orderId}`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({ type: ORDER_DELETE_SUCCESS, payload: data })
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message;
+        dispatch({ type: ORDER_DELETE_FAIL, payload: message })
+        if(message === 'Недійсний токен') {
+            dispatch(signout())
+        }
+    }
+
 }

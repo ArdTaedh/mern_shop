@@ -91,6 +91,7 @@ export const deleteProduct = productId => async (dispatch, getState) => {
     const { userSignin: { userInfo } } = getState()
 
     try {
+        // eslint-disable-next-line
         const { data } = axios.delete(`/api/products/${productId}` , {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`

@@ -20,6 +20,7 @@ import PrivateRoute from "./components/Routes/PrivateRoute";
 import AdminRoute from "./components/Routes/AdminRoute";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import ProductEditPage from "./pages/ProductEditPage/ProductEditPage";
+import OrderListPage from "./pages/OrderListPage/OrderListPage";
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
                     <PrivateRoute exact path="/profile" component={ProfilePage}/>
                     <AdminRoute exact path="/product-list" component={ProductListPage}/>
                     <AdminRoute exact path="/product/:id/edit" component={ProductEditPage}/>
+                    <AdminRoute exact path="/order-list" component={OrderListPage}/>
                 </Switch>
             </Router>
         </>

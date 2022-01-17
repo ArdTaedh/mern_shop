@@ -4,7 +4,7 @@ import {
     ORDER_CREATE_SUCCESS,
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
-    ORDER_DETAILS_SUCCESS, ORDER_MINE_LIST_FAIL,
+    ORDER_DETAILS_SUCCESS, ORDER_LIST_FAIL, ORDER_LIST_REQUEST, ORDER_LIST_SUCCESS, ORDER_MINE_LIST_FAIL,
     ORDER_MINE_LIST_REQUEST, ORDER_MINE_LIST_SUCCESS,
     ORDER_PAY_FAIL,
     ORDER_PAY_REQUEST,
@@ -94,6 +94,29 @@ export const listMineOrders = () => async (dispatch, getState) => {
             ? err.response.data.message
             : err.message;
         dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message })
+        if(message === 'Недійсний токен') {
+            dispatch(signout())
+        }
+    }
+}
+
+export const listOrders = () => async (dispatch, getState) => {
+    dispatch({ type: ORDER_LIST_REQUEST })
+
+    const { userSignin: { userInfo } } = getState()
+
+    try {
+        const { data } = await axios.get('/api/orders', {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({ type: ORDER_LIST_SUCCESS, payload: data })
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message;
+        dispatch({ type: ORDER_LIST_FAIL, payload: message })
         if(message === 'Недійсний токен') {
             dispatch(signout())
         }

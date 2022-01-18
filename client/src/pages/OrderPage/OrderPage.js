@@ -33,7 +33,7 @@ const OrderPage = (props) => {
     const { userInfo } = userSignin
 
     const orderDeliver = useSelector(state => state.orderDeliver)
-    const {error: errorDeliver, success: successDeliver, loading: loadingDeliver} = orderPay
+    const {error: errorDeliver, success: successDeliver} = orderDeliver
 
     useEffect(() => {
         const addPapalScript = async () => {
@@ -97,6 +97,8 @@ const OrderPage = (props) => {
                                         </LinkContainer>
                                         <Breadcrumb.Item active>Замовлення: {order._id}</Breadcrumb.Item>
                                     </Breadcrumb>
+
+                                    {errorDeliver && <MessageBox variant="danger">{errorDeliver}</MessageBox>}
 
                                     <Row className={classes["order-wrapper"]}>
                                         <Col className={classes["order-info__wrapper"]} xs={6}>

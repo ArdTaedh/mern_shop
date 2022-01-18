@@ -81,7 +81,7 @@ const OrderHistoryPage = (props) => {
                                                     <td datatype="Доставлено">
                                                         {order.isDelivered
                                                             ? (<MessageBox className={classes.success} variant="success">
-                                                                {moment(order.isDelivered).format("DD-MM-YYYY HH:mm")}
+                                                                {moment(order.delivredAt).format("DD-MM-YYYY HH:mm")}
                                                             </MessageBox>)
                                                             : (<MessageBox className={classes.success} variant="danger">
                                                                 Не доставлено

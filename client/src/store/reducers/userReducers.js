@@ -3,7 +3,7 @@ import {
     USER_CHECK_REQUEST, USER_CHECK_SUCCESS,
     USER_DETAILS_FAIL,
     USER_DETAILS_REQUEST,
-    USER_DETAILS_SUCCESS,
+    USER_DETAILS_SUCCESS, USER_LIST_FAIL, USER_LIST_REQUEST, USER_LIST_SUCCESS,
     USER_LOGOUT,
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
@@ -81,6 +81,19 @@ export const userUpdateProfileReducer = (state = {}, action) => {
             return { loading: false, error: action.payload }
         case USER_UPDATE_PROFILE_RESET:
             return {}
+        default:
+            return state
+    }
+}
+
+export const userListReducer = (state = { loading: true }, action) => {
+    switch (action.type) {
+        case USER_LIST_REQUEST:
+            return { loading: true }
+        case USER_LIST_SUCCESS:
+            return { loading: false, users: action.payload }
+        case USER_LIST_FAIL:
+            return { loading: false, error: action.payload }
         default:
             return state
     }

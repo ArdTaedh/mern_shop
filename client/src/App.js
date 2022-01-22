@@ -21,6 +21,7 @@ import AdminRoute from "./components/Routes/AdminRoute";
 import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import ProductEditPage from "./pages/ProductEditPage/ProductEditPage";
 import OrderListPage from "./pages/OrderListPage/OrderListPage";
+import UserListPage from "./pages/UserListPage/UserListPage";
 
 const App = () => {
 
@@ -42,6 +43,7 @@ const App = () => {
                     <AdminRoute exact path="/product-list" component={ProductListPage}/>
                     <AdminRoute exact path="/product/:id/edit" component={ProductEditPage}/>
                     <AdminRoute exact path="/order-list" component={OrderListPage}/>
+                    <AdminRoute exact path="/user-list" component={UserListPage}/>
                 </Switch>
             </Router>
         </>

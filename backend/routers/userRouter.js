@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 import User from "../models/userModel.js";
 import data from "../data.js";
-import {generateToken, isAuth} from "../utils.js";
+import {generateToken, isAdmin, isAuth} from "../utils.js";
 
 const userRouter = express.Router()
 
@@ -74,6 +74,12 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async (req, res) => {
             token: generateToken(updatedUser)
         })
     }
+}))
+
+userRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+
+    res.send(users)
 }))
 
 export default userRouter

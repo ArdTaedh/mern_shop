@@ -97,4 +97,20 @@ userRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) 
     }
 }))
 
+userRouter.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id)
+    if(user) {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        user.isSeller = Boolean(req.body.seller)
+        user.isAdmin = Boolean(req.body.admin)
+
+        const updatedUser = await user.save()
+
+        res.send({ message: "Користувача було змінено", user: updatedUser })
+    } else {
+        res.status(404).send({ message: "Користувача не знайдено" })
+    }
+}))
+
 export default userRouter

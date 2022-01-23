@@ -22,6 +22,7 @@ import ProductListPage from "./pages/ProductListPage/ProductListPage";
 import ProductEditPage from "./pages/ProductEditPage/ProductEditPage";
 import OrderListPage from "./pages/OrderListPage/OrderListPage";
 import UserListPage from "./pages/UserListPage/UserListPage";
+import UserEditPage from "./pages/UserEditPage/UserEditPage";
 
 const App = () => {
 
@@ -44,6 +45,7 @@ const App = () => {
                     <AdminRoute exact path="/product/:id/edit" component={ProductEditPage}/>
                     <AdminRoute exact path="/order-list" component={OrderListPage}/>
                     <AdminRoute exact path="/user-list" component={UserListPage}/>
+                    <AdminRoute exact path="/user/:id/edit" component={UserEditPage}/>
                 </Switch>
             </Router>
         </>

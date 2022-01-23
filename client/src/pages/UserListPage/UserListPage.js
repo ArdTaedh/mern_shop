@@ -8,8 +8,9 @@ import MessageBox from "../../components/MessageBox/MessageBox";
 import {Helmet} from "react-helmet";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteUser, usersList} from "../../store/actions/userActions";
+import {USER_DETAILS_RESET} from "../../store/constants/userConstants";
 
-const UserListPage = () => {
+const UserListPage = (props) => {
     const dispatch = useDispatch()
 
     const userList = useSelector(state => state.userList)
@@ -21,6 +22,7 @@ const UserListPage = () => {
 
     useEffect(() => {
         dispatch(usersList())
+        dispatch({ type: USER_DETAILS_RESET })
     }, [dispatch, successDelete])
 
     const deleteHandler = (user) => {
@@ -84,9 +86,9 @@ const UserListPage = () => {
                                                         <div className={classes["order-actions"]}>
                                                             <Button
                                                                 type="button"
-                                                                // onClick={() => {
-                                                                //     props.history.push(`/order/${order._id}`)
-                                                                // }}
+                                                                onClick={() => {
+                                                                    props.history.push(`/user/${user._id}/edit`)
+                                                                }}
                                                             >
                                                                 Змінити
                                                             </Button>

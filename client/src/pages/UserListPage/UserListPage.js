@@ -7,7 +7,7 @@ import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import {Helmet} from "react-helmet";
 import {useDispatch, useSelector} from "react-redux";
-import {usersList} from "../../store/actions/userActions";
+import {deleteUser, usersList} from "../../store/actions/userActions";
 
 const UserListPage = () => {
     const dispatch = useDispatch()
@@ -15,16 +15,28 @@ const UserListPage = () => {
     const userList = useSelector(state => state.userList)
     const { error, loading, users } = userList
 
+    const userDelete = useSelector(state => state.userDelete)
+    const { error: errorDelete, loading: loadingDelete, success: successDelete } = userDelete
+
 
     useEffect(() => {
         dispatch(usersList())
-    }, [])
+    }, [dispatch, successDelete])
+
+    const deleteHandler = (user) => {
+        if (window.confirm("Ви впевнені що бажаєте видалити користувача?")) {
+            dispatch(deleteUser(user._id))
+        }
+    }
 
     return (
         <div className={classes['user-list__page']}>
             <Header />
             <Container className={classes['user-list__container']}>
                 <h2>Користувачі</h2>
+                { loadingDelete && <Loading style={{ margin: "0.5rem 0" }} /> }
+                { errorDelete && <MessageBox variant="danger" style={{ margin: "0.5rem 0" }}>{errorDelete}</MessageBox> }
+                { successDelete && <MessageBox variant="success" style={{ margin: "0.5rem 0" }}>Операція успішна</MessageBox> }
                 {
                     loading
                         ? <Loading />
@@ -81,7 +93,7 @@ const UserListPage = () => {
                                                             <Button
                                                                 type="button"
                                                                 variant="danger"
-                                                                // onClick={() => deleteHandler(order)}
+                                                                onClick={() => deleteHandler(user)}
                                                             >
                                                                 Видалити
                                                             </Button>

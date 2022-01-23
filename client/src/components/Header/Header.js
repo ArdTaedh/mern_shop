@@ -109,7 +109,7 @@ const Header = () => {
                                             to="/product-list"
                                             className={classes['dropdown-menu__item']}
                                         >
-                                            Продукти
+                                            Товари
                                         </Dropdown.Item>
                                         <Dropdown.Item
                                             as={Link}

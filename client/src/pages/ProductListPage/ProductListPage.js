@@ -69,7 +69,7 @@ const ProductListPage = (props) => {
                 { loadingCreate && <Loading className="mt-3" /> }
                 { errorCreate && <MessageBox variant="danger" className="mt-3">{errorCreate}</MessageBox> }
                 <div className={classes["product-header"]}>
-                    <h3 className="">Продукти</h3>
+                    <h3 className="">Товари</h3>
                     <Button
                         type="button"
                         onClick={createHandler}

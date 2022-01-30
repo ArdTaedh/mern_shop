@@ -202,7 +202,7 @@ const ProductEditPage = (props) => {
                             )
                 }
             </Container>
-            <Footer/>
+            <Footer />
         </div>
     );
 };

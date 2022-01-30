@@ -15,9 +15,9 @@ const Header = () => {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
     const userSignin = useSelector(state => state.userSignin)
-    const { userInfo } = userSignin
+    const {userInfo} = userSignin
 
-    const { cartItems } = cart
+    const {cartItems} = cart
 
     const showSidebarHandler = () => {
         setShowSidebar(true)
@@ -42,50 +42,38 @@ const Header = () => {
                         <div className={classes["header-nav"]}>
                             <Nav.Link className={classes["header-nav__link"]} as={Link} to="/cart">
                                 Кошик
-                                { cartItems.length > 0 && <Badge className={classes['cart-badge']}>{cartItems.length}</Badge>}
+                                {cartItems.length > 0 &&
+                                    <Badge className={classes['cart-badge']}>{cartItems.length}</Badge>}
                             </Nav.Link>
-                            {
-                                userInfo
-                                    ? (
-                                        <Dropdown>
-                                            <Dropdown.Toggle
-                                                variant=""
-                                                className={classes.dropdown}
-                                            >
-                                                {userInfo.name}
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu
-                                                className={classes['dropdown-menu']}
-                                            >
-                                                <Dropdown.Item
-                                                    as={Link}
-                                                    to="/orders"
-                                                    className={classes['dropdown-menu__item']}
-                                                >
-                                                    Замовлення
-                                                </Dropdown.Item>
-                                                <Dropdown.Item
-                                                    as={Link}
-                                                    to="/profile"
-                                                    className={classes['dropdown-menu__item']}
-                                                >
-                                                    Профіль
-                                                </Dropdown.Item>
-                                                <Dropdown.Item
-                                                    className={classes['dropdown-menu__item']}
-                                                    onClick={signoutHandler}
-                                                >
-                                                    Вийти
-                                                </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    )
-                                    : (
-                                        <Nav.Link className={classes["header-nav__link"]} as={Link} to="/signin">
-                                            Увійти
-                                        </Nav.Link>
-                                    )}
-                            { userInfo && userInfo.isAdmin && (
+                            {userInfo && userInfo.isSeller && (
+                                <Dropdown>
+                                    <Dropdown.Toggle
+                                        variant=""
+                                        className={classes.dropdown}
+                                    >
+                                        Продавець
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu
+                                        className={classes['dropdown-menu']}
+                                    >
+                                        <Dropdown.Item
+                                            as={Link}
+                                            to="/product-list/seller"
+                                            className={classes['dropdown-menu__item']}
+                                        >
+                                            Товари
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                            as={Link}
+                                            to="/order-list/seller"
+                                            className={classes['dropdown-menu__item']}
+                                        >
+                                            Замовлення
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            )}
+                            {userInfo && userInfo.isAdmin && (
                                 // <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
                                 <Dropdown>
                                     <Dropdown.Toggle
@@ -128,12 +116,53 @@ const Header = () => {
                                     </Dropdown.Menu>
                                 </Dropdown>
                             )}
-                            <GiHamburgerMenu className={classes.toggle} onClick={showSidebarHandler} />
+                            {
+                                userInfo
+                                    ? (
+                                        <Dropdown>
+                                            <Dropdown.Toggle
+                                                variant=""
+                                                className={classes.dropdown}
+                                            >
+                                                {userInfo.name}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu
+                                                className={classes['dropdown-menu']}
+                                            >
+                                                <Dropdown.Item
+                                                    as={Link}
+                                                    to="/orders"
+                                                    className={classes['dropdown-menu__item']}
+                                                >
+                                                    Замовлення
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    as={Link}
+                                                    to="/profile"
+                                                    className={classes['dropdown-menu__item']}
+                                                >
+                                                    Профіль
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    className={classes['dropdown-menu__item']}
+                                                    onClick={signoutHandler}
+                                                >
+                                                    Вийти
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    )
+                                    : (
+                                        <Nav.Link className={classes["header-nav__link"]} as={Link} to="/signin">
+                                            Увійти
+                                        </Nav.Link>
+                                    )}
+                            <GiHamburgerMenu className={classes.toggle} onClick={showSidebarHandler}/>
                         </div>
                     </div>
                 </Container>
             </header>
-            <Sidebar show={showSidebar} hide={hideSidebarHandler} />
+            <Sidebar show={showSidebar} hide={hideSidebarHandler}/>
         </>
     );
 };

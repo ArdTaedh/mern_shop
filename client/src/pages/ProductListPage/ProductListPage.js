@@ -13,6 +13,8 @@ import {PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET} from "../../store/constants/
 
 
 const ProductListPage = (props) => {
+    const sellerMode = props.match.path.indexOf('/seller') >= 0
+
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
@@ -33,6 +35,9 @@ const ProductListPage = (props) => {
         error: errorDelete
     } = productDelete
 
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin
+
     useEffect(() => {
         if (successCreate) {
             dispatch({ type: PRODUCT_CREATE_RESET })
@@ -43,8 +48,8 @@ const ProductListPage = (props) => {
             dispatch({ type: PRODUCT_DELETE_RESET })
         }
 
-        dispatch(listProducts())
-    }, [dispatch, createdProduct, props.history, successCreate, successDelete])
+        dispatch(listProducts({ seller: sellerMode ? userInfo._id : '' }))
+    }, [dispatch, createdProduct, props.history, successCreate, successDelete, sellerMode, userInfo])
 
     const createHandler = () => {
         dispatch(createProduct())

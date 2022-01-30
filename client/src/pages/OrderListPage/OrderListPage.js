@@ -13,6 +13,8 @@ import Footer from "../../components/Footer/Footer";
 import {ORDER_DELETE_RESET} from "../../store/constants/orderConstants";
 
 const OrderListPage = (props) => {
+    const sellerMode = props.match.path.indexOf('/seller') >= 0
+
     const dispatch = useDispatch()
 
     const orderList = useSelector(state => state.orderList)
@@ -21,18 +23,19 @@ const OrderListPage = (props) => {
     const orderDelete = useSelector(state => state.orderDelete)
     const {error: errorDelete, loading: loadingDelete, success: successDelete} = orderDelete
 
+    const userSignin = useSelector(state => state.userSignin)
+    const { userInfo } = userSignin
+
     useEffect(() => {
         dispatch({ type: ORDER_DELETE_RESET })
-        dispatch(listOrders())
-    }, [dispatch, successDelete])
+        dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }))
+    }, [dispatch, successDelete, sellerMode, userInfo])
 
     const deleteHandler = (order) => {
         if (window.confirm('Ви впевнені що хочете видалити замовлення?')) {
             dispatch(deleteOrder(order._id))
         }
     }
-
-
 
     return (
         <div className={classes["order-list__page"]}>

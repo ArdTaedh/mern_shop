@@ -18,6 +18,10 @@ const ProfilePage = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+    const [sellerName, setSellerName] = useState('')
+    const [sellerLogo, setSellerLogo] = useState('')
+    const [sellerDescription, setSellerDescription] = useState('')
+
     const dispatch = useDispatch()
 
     const userUpdate = useSelector(state => state.userUpdateProfile)
@@ -36,6 +40,12 @@ const ProfilePage = () => {
         } else {
             setName(user.name)
             setEmail(user.email)
+
+            if (user.seller) {
+                setSellerName(user.seller.name)
+                setSellerLogo(user.seller.logo)
+                setSellerDescription(user.seller.description)
+            }
         }
 
     }, [dispatch, userInfo._id, user])
@@ -50,7 +60,10 @@ const ProfilePage = () => {
                 userId: user._id,
                 name,
                 email,
-                password
+                password,
+                sellerName,
+                sellerLogo,
+                sellerDescription,
             }))
         }
     }
@@ -113,7 +126,44 @@ const ProfilePage = () => {
                                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                                 />
                                             </FormGroup>
-                                            <div className="actions">
+                                            {
+                                                user.isSeller && (
+                                                    <>
+                                                        <h3>Інформація про продавця</h3>
+                                                        <FormGroup className={classes["name-control"]}>
+                                                            <Form.Label className={classes['form-label']}>ПІБ Продавця</Form.Label>
+                                                            <FormControl
+                                                                type="text"
+                                                                value={sellerName}
+                                                                placeholder="Введіть ПІБ Продавця"
+                                                                onChange={(e) => setSellerName(e.target.value)}
+                                                                size="lg"
+                                                            />
+                                                        </FormGroup>
+                                                        <FormGroup className={classes["seller-logo__control"]}>
+                                                            <Form.Label className={classes['form-label']}>Логотип</Form.Label>
+                                                            <FormControl
+                                                                type="text"
+                                                                value={sellerLogo}
+                                                                placeholder="Введіть ПІБ Продавця"
+                                                                onChange={(e) => setSellerLogo(e.target.value)}
+                                                                size="lg"
+                                                            />
+                                                        </FormGroup>
+                                                        <FormGroup className={classes["seller-description__control"]}>
+                                                            <Form.Label className={classes['form-label']}>Опис Продавця</Form.Label>
+                                                            <FormControl
+                                                                type="text"
+                                                                value={sellerDescription}
+                                                                placeholder="Введіть опис продавця"
+                                                                onChange={(e) => setSellerDescription(e.target.value)}
+                                                                size="lg"
+                                                            />
+                                                        </FormGroup>
+                                                    </>
+                                                )
+                                            }
+                                            <div className="actions mt-2">
                                                 <Button
                                                     type="submit"
                                                     size="lg"

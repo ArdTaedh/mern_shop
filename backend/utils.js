@@ -5,7 +5,8 @@ export const generateToken = (user) => {
         _id: user.id,
         name: user.name,
         email: user.email,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        isSeller: user.isSeller,
     }, process.env.JWT_SECRET || 'somesecret',
         {
             expiresIn: '1h'
@@ -38,5 +39,21 @@ export const isAdmin = (req, res, next) => {
         next()
     } else {
         res.status(401).send({ message: 'Пототчний користувач не має прав адміністратора' });
+    }
+}
+
+export const isSeller = (req, res, next) => {
+    if (req.user && req.user.isSeller) {
+        next()
+    } else {
+        res.status(401).send({ message: 'Пототчний користувач не має прав продавця' });
+    }
+}
+
+export const isSellerOrAdmin = (req, res, next) => {
+    if (req.user && (req.user.isSeller || req.user.isAdmin )) {
+        next()
+    } else {
+        res.status(401).send({ message: 'Пототчний користувач не має прав продавця/адміністратора' });
     }
 }

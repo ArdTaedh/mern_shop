@@ -6,7 +6,7 @@
 }
 
 .container {
-  margin-top: 1rem;
+  margin: 1rem auto;
 }
 
 .form-wrapper {
@@ -24,6 +24,10 @@
 .confirm-password__control
 {
   margin-bottom: 0.5rem;
+}
+
+.seller-description__control {
+  margin-top: 0.4rem;
 }
 
 @media screen and (max-width: 425px) {

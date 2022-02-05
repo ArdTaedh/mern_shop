@@ -77,6 +77,27 @@ const Sidebar = (props) => {
                             )
                     }
                     {
+                        userInfo && userInfo.isSeller && (
+                            <Accordion className={classes['sidebar-accordion']}>
+                                <Accordion.Item eventKey="0" className={classes['sidebar-accordion__item']}>
+                                    <Accordion.Button className={classes['sidebar-accordion__btn']}>Продавець</Accordion.Button>
+                                    <Accordion.Body className={classes['accordion-body']}>
+                                        <li className={classes['dropdown-item']}>
+                                            <Link className={classes['dropdown-item__link']} to="/product-list/seller">
+                                                Товари
+                                            </Link>
+                                        </li>
+                                        <li className={classes['dropdown-item']}>
+                                            <Link className={classes['dropdown-item__link']} to="/order-list/seller">
+                                                Замовлення
+                                            </Link>
+                                        </li>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        )
+                    }
+                    {
                         userInfo && userInfo.isAdmin && (
                             <Accordion className={classes['sidebar-accordion']}>
                                 <Accordion.Item eventKey="0" className={classes['sidebar-accordion__item']}>

@@ -7,10 +7,10 @@ import {Link} from "react-router-dom";
 
 const Product = (props) => {
     return (
-        <Card className={classes["product"]}>
+        <Card className={props.cardCN || classes["product"]}>
             <Link to={`/product/${props.id}`}>
                 <Card.Img
-                    className={classes['card-img']}
+                    className={props.cardImgCN || classes['card-img']}
                     variant='top'
                     src={props.img}
                 />
@@ -21,6 +21,10 @@ const Product = (props) => {
                         {props.name}
                     </Card.Title>
                 </Link>
+                <div className="seller d-flex gap-2">
+                    <h5>Продавець:</h5>
+                    <Link to={`/seller/${props.seller._id}`} style={{ fontSize: '1.2rem'}}>{props.seller.seller.name}</Link>
+                </div>
                 <Rating rating={props.rating} reviews={props.reviews} />
                 <div className={classes['price-wrapper']}>
                     <h5 className={classes.price}>₴{props.price}</h5>

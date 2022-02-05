@@ -24,6 +24,7 @@ import OrderListPage from "./pages/OrderListPage/OrderListPage";
 import UserListPage from "./pages/UserListPage/UserListPage";
 import UserEditPage from "./pages/UserEditPage/UserEditPage";
 import SellerRoute from "./components/Routes/SellerRoute";
+import SellerPage from "./pages/SellerPage/SellerPage";
 
 const App = () => {
 
@@ -49,6 +50,7 @@ const App = () => {
                     <AdminRoute exact path="/user/:id/edit" component={UserEditPage}/>
                     <SellerRoute exact path="/product-list/seller" component={ProductListPage} />
                     <SellerRoute exact path="/order-list/seller" component={OrderListPage}/>
+                    <SellerRoute exact path="/seller/:id" component={SellerPage}/>
                 </Switch>
             </Router>
         </>

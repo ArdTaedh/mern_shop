@@ -30,6 +30,7 @@ const Products = () => {
                         price={product.price}
                         rating={product.rating}
                         reviews={product.numReviews}
+                        seller={product.seller}
                     />)
             ))}
         </div>

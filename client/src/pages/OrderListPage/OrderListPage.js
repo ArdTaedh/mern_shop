@@ -84,7 +84,7 @@ const OrderListPage = (props) => {
                                                         className={classes['table-row']}
                                                     >
                                                         <td datatype="ID">{order._id}</td>
-                                                        <td datatype="ID">{order.user.name}</td>
+                                                        <td datatype="ПІБ">{order.user.name}</td>
                                                         <td datatype="Дата">{moment(order.createdAt).format("DD-MM-YYYY HH:mm")}</td>
                                                         <td datatype="Ціна">{order.totalPrice}</td>
                                                         <td datatype="Оплачено">

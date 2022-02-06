@@ -9,11 +9,13 @@ const Product = (props) => {
     return (
         <Card className={props.cardCN || classes["product"]}>
             <Link to={`/product/${props.id}`}>
-                <Card.Img
-                    className={props.cardImgCN || classes['card-img']}
-                    variant='top'
-                    src={props.img}
-                />
+                <div className={classes["img-wrapper"]}>
+                    <Card.Img
+                        className={props.cardImgCN || classes['card-img']}
+                        variant='top'
+                        src={props.img}
+                    />
+                </div>
             </Link>
             <Card.Body>
                 <Link to={`/product/${props.id}`}>

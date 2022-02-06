@@ -11,6 +11,10 @@
   border-radius: 0.5rem;
 }
 
+.img-wrapper {
+  height: 485.922px;
+}
+
 .price {
   font-weight: 600;
 }
@@ -18,15 +22,25 @@
 @media screen and (max-width: 1024px) {
   .product {
     width: 17rem;
-    height: 28rem;
+    height: 30rem;
+  }
+
+  .img-wrapper {
+    height: 329.641px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .product {
     width: 20rem;
-    height: 32rem;
+    height: 34rem;
   }
+
+  .img-wrapper {
+    height: 388.250px;
+  }
+
+
 }
 
 @media screen and (max-width: 425px) {
@@ -34,5 +48,7 @@
     width: 20rem;
     height: 33.5rem;
   }
+
+  //height: 388.250px;
 }
 

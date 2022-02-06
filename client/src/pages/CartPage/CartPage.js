@@ -17,7 +17,7 @@ const CartPage = (props) => {
         ? Number(props.location.search.split('=')[1])
         : 1
     const cart = useSelector(state => state.cart)
-    const {cartItems} = cart
+    const { cartItems, error } = cart
 
 
     useEffect(() => {
@@ -44,6 +44,7 @@ const CartPage = (props) => {
                 <Row className={classes["cart-wrapper"]}>
                     <Col className={classes["cart-items__col"]} xs={7}>
                         <h2 className="mt-2">Кошик</h2>
+                        { error && <MessageBox variant="danger">{error}</MessageBox> }
                         {
                             cartItems.length === 0
                                 ? <MessageBox

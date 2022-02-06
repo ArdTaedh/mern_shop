@@ -44,12 +44,12 @@ const App = () => {
                     <Route exact path="/orders" component={OrderHistoryPage}/>
                     <PrivateRoute exact path="/profile" component={ProfilePage}/>
                     <AdminRoute exact path="/product-list" component={ProductListPage}/>
-                    <AdminRoute exact path="/product/:id/edit" component={ProductEditPage}/>
+                    <Route exact path="/product/:id/edit" component={ProductEditPage}/>
                     <AdminRoute exact path="/order-list" component={OrderListPage}/>
                     <AdminRoute exact path="/user-list" component={UserListPage}/>
                     <AdminRoute exact path="/user/:id/edit" component={UserEditPage}/>
                     <SellerRoute exact path="/product-list/seller" component={ProductListPage} />
-                    <SellerRoute exact path="/order-list/seller" component={OrderListPage}/>
+                    <SellerRoute path="/order-list/seller" component={OrderListPage}/>
                     <SellerRoute exact path="/seller/:id" component={SellerPage}/>
                 </Switch>
             </Router>

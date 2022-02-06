@@ -49,7 +49,7 @@ const ProductListPage = (props) => {
         }
 
         dispatch(listProducts({ seller: sellerMode ? userInfo._id : '' }))
-    }, [dispatch, createdProduct, props.history, successCreate, successDelete, sellerMode, userInfo])
+    }, [dispatch, createdProduct, props.history, successCreate, successDelete, sellerMode, userInfo._id])
 
     const createHandler = () => {
         dispatch(createProduct())

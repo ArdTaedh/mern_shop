@@ -44,7 +44,7 @@ const SellerPage = (props) => {
                                 <>
                                     <>
                                         <Helmet>
-                                            <title>Продавець: {user.seller.name}</title>
+                                            <title>{`Продавець: ${user.seller.name}`}</title>
                                         </Helmet>
                                     </>
                                     <Row className={classes['seller-page__content']}>
@@ -60,7 +60,9 @@ const SellerPage = (props) => {
                                                             reviews={user.seller.numReviews}
                                                         />
                                                         <div className="contact-with__seller">
-                                                            <a href={`malito:${user.email}`}>Contact Seller</a>
+                                                            <a href={`mailto:${user.email}`}>
+                                                                Contact Seller
+                                                            </a>
                                                         </div>
                                                         <div className="seller-description">
                                                             {user.seller.description}

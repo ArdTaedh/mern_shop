@@ -1,5 +1,5 @@
 import {
-    CART_ADD_ITEM,
+    CART_ADD_ITEM, CART_ADD_ITEM_FAIL,
     CART_REMOVE_ITEM,
     CART_SAVE_PAYMENT_METHOD,
     CART_SET_SHIPPING_ADDRESS, SET_CART_EMPTY
@@ -26,6 +26,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         case CART_REMOVE_ITEM:
             return {
                 ...state,
+                error: null,
                 cartItems: state.cartItems.filter(x => x.product !== action.payload)
             }
         case CART_SET_SHIPPING_ADDRESS:
@@ -38,8 +39,10 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
                 ...state,
                 paymentMethod: action.payload
             }
+        case CART_ADD_ITEM_FAIL:
+            return { ...state, error: action.payload }
         case SET_CART_EMPTY:
-                return { ...state, cartItems: [] }
+                return { ...state, error: null, cartItems: [] }
         default:
             return state
     }

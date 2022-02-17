@@ -1,0 +1,29 @@
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.search-btn {
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    width: 26%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .search-form {
+    width: 50%;
+  }
+}

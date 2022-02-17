@@ -11,6 +11,7 @@ import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import {Helmet} from "react-helmet";
 import {USER_UPDATE_PROFILE_RESET} from "../../store/constants/userConstants";
+import axios from "axios";
 
 const ProfilePage = () => {
     const [name, setName] = useState('')
@@ -20,6 +21,8 @@ const ProfilePage = () => {
 
     const [sellerName, setSellerName] = useState('')
     const [sellerLogo, setSellerLogo] = useState('')
+    const [loadingUpload, setLoadingUpload] = useState(false)
+    const [errorUpload, setErrorUpload] = useState(false)
     const [sellerDescription, setSellerDescription] = useState('')
 
     const dispatch = useDispatch()
@@ -65,6 +68,28 @@ const ProfilePage = () => {
                 sellerLogo,
                 sellerDescription,
             }))
+        }
+    }
+
+    const uploadSellerLogoHandler = async (e) => {
+        const file = e.target.files[0]
+        const bodyFormData = new FormData()
+
+        bodyFormData.append('image', file)
+        setLoadingUpload(true)
+
+        try {
+            const { data } = await axios.post('/api/uploads', bodyFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${userInfo.token}`,
+                },
+            })
+            setSellerLogo(data)
+            setLoadingUpload(false)
+        } catch (err) {
+            setErrorUpload(err.message)
+            setLoadingUpload(false)
         }
     }
 
@@ -140,16 +165,23 @@ const ProfilePage = () => {
                                                                 size="lg"
                                                             />
                                                         </FormGroup>
-                                                        <FormGroup className={classes["seller-logo__control"]}>
-                                                            <Form.Label className={classes['form-label']}>Логотип</Form.Label>
-                                                            <FormControl
-                                                                type="text"
-                                                                value={sellerLogo}
-                                                                placeholder="Введіть ПІБ Продавця"
-                                                                onChange={(e) => setSellerLogo(e.target.value)}
+                                                        <Form.Group className="mt-2">
+                                                            <Form.Label className={classes['form-label']}>Фото</Form.Label>
+                                                            <Form.Control
+                                                                className={classes['form-input']}
                                                                 size="lg"
+                                                                type="text"
+                                                                placeholder="Оберіть фото продукту"
+                                                                value={sellerLogo}
+                                                                onChange={(e) => setSellerLogo(e.target.value)}
+                                                                disabled
                                                             />
-                                                        </FormGroup>
+                                                        </Form.Group>
+                                                        <Form.Group controlId="formFile" className="mt-3">
+                                                            <Form.Control type="file" onChange={uploadSellerLogoHandler} />
+                                                            {loadingUpload && <Loading />}
+                                                            {errorUpload && <MessageBox variant="danger">{errorUpload}</MessageBox> }
+                                                        </Form.Group>
                                                         <FormGroup className={classes["seller-description__control"]}>
                                                             <Form.Label className={classes['form-label']}>Опис Продавця</Form.Label>
                                                             <FormControl

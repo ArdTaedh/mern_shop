@@ -3,11 +3,12 @@ import {Badge, Container, Dropdown, Nav} from "react-bootstrap";
 
 
 import classes from './Header.module.scss'
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import {GiHamburgerMenu} from "react-icons/all";
 import Sidebar from "../Sidebar/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {signout} from "../../store/actions/userActions";
+import Search from "../Search/Search";
 
 const Header = () => {
     const [showSidebar, setShowSidebar] = useState(false)
@@ -39,6 +40,7 @@ const Header = () => {
                         <div className="header-logo">
                             <h2 className={classes["header-logo__brand"]}><Link to='/'>E-Store</Link></h2>
                         </div>
+                        <Route render={({history}) => <Search history={history}/>}/>
                         <div className={classes["header-nav"]}>
                             <Nav.Link className={classes["header-nav__link"]} as={Link} to="/cart">
                                 Кошик

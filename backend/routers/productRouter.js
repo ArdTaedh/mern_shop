@@ -6,14 +6,46 @@ import {isAdmin, isAuth, isSellerOrAdmin} from "../utils.js";
 
 const productRouter = express.Router()
 
+
+
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
     const seller = req.query.seller || ''
-    const sellerFilter = seller ? { seller } : {}
+    const sellerFilter = seller ? {seller} : {}
+
     const name = req.query.name || ''
-    const nameFilter = name ? { name: {$regex: name, $options: 'i' } } : {}
+    const nameFilter = name ? {name: {$regex: name, $options: 'i'}} : {}
+
     const category = req.query.category || ''
-    const categoryFilter = category ? { category } : {}
-    const products = await Product.find({...sellerFilter, ...nameFilter, ...categoryFilter}).populate('seller', 'seller.name seller.logo')
+    const categoryFilter = category ? {category} : {}
+
+    const notEqualToZero = Number(req.query.min) !== 0
+
+    const min = req.query.min && notEqualToZero ? Number(req.query.min) : 0
+    const max = req.query.max && notEqualToZero ? Number(req.query.max) : 0
+    const priceFilter = min && max ? { price: {$gte: min, $lte: max } }: {}
+
+    const rating = req.query.rating && notEqualToZero ? Number(req.query.rating) : 0
+    const ratingFilter = rating ? { rating: {$gte: rating } }: {}
+
+    const order = req.query.order || ''
+    const sortOrder =
+        order === 'lowest'
+            ? { price: 1 }
+            : order === 'highest'
+                ? { price: -1 }
+                : order === 'toprated'
+                    ? { rating: -1 }
+                    : { id: -1 }
+
+    const products = await Product.find(
+        {
+            ...sellerFilter,
+            ...nameFilter,
+            ...categoryFilter,
+            ...priceFilter,
+            ...ratingFilter,
+        }).populate('seller', 'seller.name seller.logo')
+        .sort(sortOrder)
     res.send(products)
 }))
 
@@ -25,7 +57,7 @@ productRouter.get('/categories', expressAsyncHandler(async (req, res) => {
 productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
     await Product.remove({})
     const createdProducts = await Product.insertMany(data.products)
-    res.send({ createdProducts })
+    res.send({createdProducts})
 }))
 
 productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
@@ -37,7 +69,7 @@ productRouter.get('/:id', expressAsyncHandler(async (req, res) => {
     if (product)
         res.send(product)
     else
-        res.status(404).send({ message: 'Продукт не знайдено' })
+        res.status(404).send({message: 'Продукт не знайдено'})
 }))
 
 productRouter.post('/', isAuth, isSellerOrAdmin, expressAsyncHandler(async (req, res) => {
@@ -55,7 +87,7 @@ productRouter.post('/', isAuth, isSellerOrAdmin, expressAsyncHandler(async (req,
     })
 
     const createdProduct = await product.save()
-    res.send({ message: 'Створено продукт', product: createdProduct })
+    res.send({message: 'Створено продукт', product: createdProduct})
 }))
 
 productRouter.put('/:id', isAuth, isSellerOrAdmin, expressAsyncHandler(async (req, res) => {
@@ -71,9 +103,9 @@ productRouter.put('/:id', isAuth, isSellerOrAdmin, expressAsyncHandler(async (re
         product.description = req.body.description
 
         const updatedProduct = await product.save()
-        res.send({ message: "Продукт було оновлено", product: updatedProduct})
+        res.send({message: "Продукт було оновлено", product: updatedProduct})
     } else {
-        res.status(404).send({ message: 'Продукт не знайдено' })
+        res.status(404).send({message: 'Продукт не знайдено'})
     }
 }))
 
@@ -82,12 +114,11 @@ productRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, re
 
     if (product) {
         const deletedProduct = await product.remove()
-        res.send({ message: 'Товар видалено', product: deletedProduct })
+        res.send({message: 'Товар видалено', product: deletedProduct})
     } else {
-        res.status(404).send({ message: "Товар не знайдено" })
+        res.status(404).send({message: "Товар не знайдено"})
     }
 }))
-
 
 
 export default productRouter

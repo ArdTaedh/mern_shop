@@ -48,7 +48,7 @@ const SellerPage = (props) => {
                                         </Helmet>
                                     </>
                                     <Row className={classes['seller-page__content']}>
-                                        <Col className={classes['seller-col']} xs={3}>
+                                        <Col className={classes['seller-col']}>
                                             <Card className={classes['seller-card']}>
                                                 <div className={classes["seller-card__content"]}>
                                                     <Card.Img src={user.seller.logo} alt={user.seller.name}

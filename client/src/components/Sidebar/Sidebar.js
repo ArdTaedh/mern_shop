@@ -110,7 +110,7 @@ const Sidebar = (props) => {
                                         </li>
                                         <li className={classes['dropdown-item']}>
                                             <Link className={classes['dropdown-item__link']} to="/product-list">
-                                                Продукти
+                                                Товари
                                             </Link>
                                         </li>
                                         <li className={classes['dropdown-item']}>

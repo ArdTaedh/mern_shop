@@ -2,10 +2,10 @@ import React from 'react';
 
 import classes from "./Rating.module.scss";
 
-const Rating = ({rating, reviews}) => {
+const Rating = ({rating, reviews, caption, className}) => {
 
     return (
-        <div className={classes["card-rating"]}>
+        <div className={className ? className : classes["card-rating"]}>
             <span>
                 <i
                 className={
@@ -37,7 +37,8 @@ const Rating = ({rating, reviews}) => {
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
-            /></span>
+            />
+            </span>
             <span>
                 <i
                 className={
@@ -47,7 +48,8 @@ const Rating = ({rating, reviews}) => {
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
-            /></span>
+            />
+            </span>
             <span>
                 <i
                 className={
@@ -57,10 +59,13 @@ const Rating = ({rating, reviews}) => {
                             ? 'fa fa-star-half-o'
                             : 'fa fa-star-o'
                 }
-            /></span>
-            <div className={classes.reviews}>
-                {reviews} відгуків
-            </div>
+            />
+            </span>
+            {caption ? <p style={{ marginLeft: "0.5rem"}}>{caption}</p> : (
+                <div className={classes.reviews}>
+                    {reviews} відгуків
+                </div> )
+            }
         </div>
     );
 };

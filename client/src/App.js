@@ -62,7 +62,10 @@ const App = () => {
                     <SellerRoute exact path="/seller/:id" component={SellerPage}/>
                     <Route exact path="/search/name/:name?" component={SearchPage} />
                     <Route exact path="/search/category/:category" component={SearchPage} />
-                    <Route exact path="/search/category/:category/name/:name" component={SearchPage} />
+                    {/*<Route exact path="/search/category/:category/name/:name" component={SearchPage} />*/}
+                    {/*<Route exact path="/search/category/:category/name/:name/min/:min/max/:max" component={SearchPage} />*/}
+                    {/*<Route exact path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating" component={SearchPage} />*/}
+                    <Route exact path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order" component={SearchPage} />
                 </Switch>
             </Router>
         </>

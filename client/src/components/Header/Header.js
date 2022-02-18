@@ -4,14 +4,16 @@ import {Badge, Container, Dropdown, Nav} from "react-bootstrap";
 
 import classes from './Header.module.scss'
 import {Link, Route} from "react-router-dom";
-import {GiHamburgerMenu} from "react-icons/all";
+import { GiHamburgerMenu, HiOutlineArrowNarrowRight } from "react-icons/all";
 import Sidebar from "../Sidebar/Sidebar";
 import {useDispatch, useSelector} from "react-redux";
 import {signout} from "../../store/actions/userActions";
 import Search from "../Search/Search";
+import CategorySidebar from "../Sidebar/CategorySidebar";
 
 const Header = () => {
     const [showSidebar, setShowSidebar] = useState(false)
+    const [showCategorySidebar, setCategoryShowSidebar] = useState(false)
 
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
@@ -21,11 +23,11 @@ const Header = () => {
     const {cartItems} = cart
 
     const showSidebarHandler = () => {
-        setShowSidebar(true)
+        setShowSidebar(!showSidebar)
     }
 
-    const hideSidebarHandler = () => {
-        setShowSidebar(false)
+    const showCategorySidebarHandler = () => {
+        setCategoryShowSidebar(!showCategorySidebar)
     }
 
     const signoutHandler = () => {
@@ -37,10 +39,11 @@ const Header = () => {
             <header className={classes.header}>
                 <Container className={classes.container}>
                     <div className={classes["header-wrapper"]}>
-                        <div className="header-logo">
+                        <div className={classes["header-logo"]}>
+                            <HiOutlineArrowNarrowRight className={classes['category-sidebar__btn']} onClick={showCategorySidebarHandler} />
                             <h2 className={classes["header-logo__brand"]}><Link to='/'>E-Store</Link></h2>
                         </div>
-                        <Route render={({history}) => <Search history={history}/>}/>
+                        <Route render={({history}) => <Search className={classes['header-search']} history={history}/>}/>
                         <div className={classes["header-nav"]}>
                             <Nav.Link className={classes["header-nav__link"]} as={Link} to="/cart">
                                 Кошик
@@ -164,7 +167,8 @@ const Header = () => {
                     </div>
                 </Container>
             </header>
-            <Sidebar show={showSidebar} hide={hideSidebarHandler}/>
+            <Sidebar show={showSidebar} hide={showSidebarHandler}/>
+            <CategorySidebar show={showCategorySidebar} hide={showCategorySidebarHandler}  />
         </>
     );
 };

@@ -11,8 +11,15 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
     const sellerFilter = seller ? { seller } : {}
     const name = req.query.name || ''
     const nameFilter = name ? { name: {$regex: name, $options: 'i' } } : {}
-    const products = await Product.find({...sellerFilter, ...nameFilter}).populate('seller', 'seller.name seller.logo')
+    const category = req.query.category || ''
+    const categoryFilter = category ? { category } : {}
+    const products = await Product.find({...sellerFilter, ...nameFilter, ...categoryFilter}).populate('seller', 'seller.name seller.logo')
     res.send(products)
+}))
+
+productRouter.get('/categories', expressAsyncHandler(async (req, res) => {
+    const categories = await Product.find().distinct('category')
+    res.send(categories)
 }))
 
 productRouter.get('/seed', expressAsyncHandler(async (req, res) => {
@@ -80,6 +87,7 @@ productRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, re
         res.status(404).send({ message: "Товар не знайдено" })
     }
 }))
+
 
 
 export default productRouter

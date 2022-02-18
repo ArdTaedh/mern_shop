@@ -23,6 +23,20 @@
   gap: 1rem;
 }
 
+.category-list {
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .search-results__actions {
+    width: 100%;
+  }
+
+  .seeked-products__col {
+    width: 100%;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .search-wrapper {
     display: flex;

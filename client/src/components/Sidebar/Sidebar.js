@@ -2,7 +2,7 @@ import React from 'react';
 import {Accordion, Badge, Offcanvas} from "react-bootstrap";
 import classNames from "classnames";
 
-import classes from './Sidebar.module.scss'
+import classes from './scss/Sidebar.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {signout} from "../../store/actions/userActions";

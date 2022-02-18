@@ -15,15 +15,3 @@
     box-shadow: none;
   }
 }
-
-@media screen and (max-width: 768px) {
-  .search-form {
-    width: 26%;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .search-form {
-    width: 50%;
-  }
-}

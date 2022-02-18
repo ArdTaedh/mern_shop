@@ -14,7 +14,7 @@ const Search = (props) => {
 
     return (
         <Form
-            className={classes['search-form']}
+            className={props.className ? props.className : classes['search-form']}
             onSubmit={submitHandler}
         >
             <Form.Group
@@ -30,6 +30,7 @@ const Search = (props) => {
                     className={classes['search-btn']}
                     variant="outline-secondary"
                     type="submit"
+                    onClick={props.hideSidebar}
                 >
                     <AiOutlineSearch />
                 </Button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -26,8 +26,16 @@ import UserEditPage from "./pages/UserEditPage/UserEditPage";
 import SellerRoute from "./components/Routes/SellerRoute";
 import SellerPage from "./pages/SellerPage/SellerPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import {useDispatch} from "react-redux";
+import {listProductCategories} from "./store/actions/productActions";
 
 const App = () => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(listProductCategories())
+    }, [dispatch])
 
     return (
         <>
@@ -53,6 +61,8 @@ const App = () => {
                     <SellerRoute path="/order-list/seller" component={OrderListPage}/>
                     <SellerRoute exact path="/seller/:id" component={SellerPage}/>
                     <Route exact path="/search/name/:name?" component={SearchPage} />
+                    <Route exact path="/search/category/:category" component={SearchPage} />
+                    <Route exact path="/search/category/:category/name/:name" component={SearchPage} />
                 </Switch>
             </Router>
         </>

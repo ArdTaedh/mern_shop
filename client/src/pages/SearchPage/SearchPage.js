@@ -6,29 +6,41 @@ import Footer from "../../components/Footer/Footer";
 import {Col, Container, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {listProducts} from "../../store/actions/productActions";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import Product from "../../components/Products/Product";
 
 
 const SearchPage = (props) => {
-    const {name = 'all'} = useParams()
+    const {name = 'all', category = 'all'} = useParams()
 
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
     const {loading, error, products} = productList
 
+    const productCategoryList = useSelector(state => state.productCategoryList)
+    const {loading: loadingCategories, error: errorCategories, categories} = productCategoryList
+
     useEffect(() => {
         dispatch(listProducts(
             {
                 name: name !== 'all'
                     ? name
+                    : '',
+                category: category !== 'all'
+                    ? category
                     : ''
             }
         ))
-    }, [dispatch, name])
+    }, [dispatch, name, category])
+
+    const getFilteredUrl = (filter) => {
+        const filteredCategory = filter.category || category
+        const filteredName = filter.name || name
+        return `/search/category/${filteredCategory}/name/${filteredName}`
+    }
 
     return (
         <div className={classes['search-page']}>
@@ -39,24 +51,46 @@ const SearchPage = (props) => {
                 <Row
                     className={classes['search-wrapper']}
                 >
-                 <Col
-                     className={classes['search-results__actions']}
-                     xs={2}
-                 >
-                     {
-                         loading
-                             ? <Loading/>
-                             : error
-                                 ? <MessageBox varaint="danger">{error}</MessageBox>
-                                 : <div>Результати: {products.length} </div>
-                     }
-                     <div className="search-results">
-                         <h3>Категорії</h3>
-                         <ul>
-                             <li>Категорія</li>
-                         </ul>
-                     </div>
-                 </Col>
+                    <Col
+                        className={classes['search-results__actions']}
+                        xs={2}
+                    >
+                        {
+                            loading
+                                ? <Loading/>
+                                : error
+                                    ? <MessageBox varaint="danger">{error}</MessageBox>
+                                    : <h3>Результати: {products.length} </h3>
+                        }
+                        <div className="search-results">
+                            {
+                                loadingCategories
+                                    ? <Loading/>
+                                    : errorCategories
+                                        ? <MessageBox varaint="danger">{errorCategories}</MessageBox>
+                                        : (
+                                            <>
+                                                <h5>Категорії</h5>
+                                                <ul
+                                                    className={classes['category-list']}
+                                                >
+                                                    {categories.map(category => (
+                                                        <li
+                                                            key={category}
+                                                        >
+                                                            <Link
+                                                                to={getFilteredUrl({category: category})}
+                                                            >
+                                                                {category}
+                                                            </Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </>
+                                        )
+                            }
+                        </div>
+                    </Col>
                     <Col
                         className={classes['seeked-products__col']}
                         xs={9}

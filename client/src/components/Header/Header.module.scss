@@ -2,6 +2,13 @@
   background-color: #A2AEBB;
   min-height: 70px;
 
+  &-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
   &-logo__brand > a {
     color: black;
   }
@@ -59,8 +66,7 @@
   &:focus,
   &:hover,
   &:active,
-  &:focus-visible
-  {
+  &:focus-visible {
     box-shadow: none;
     background-color: #A2AEBB;
     border: none;
@@ -82,16 +88,35 @@
   }
 }
 
-  @media screen and (max-width: 425px) {
+.category-sidebar__btn {
+  display: none;
+  font-size: 1.2rem;
+}
 
-    .header-nav__link,
-    .dropdown {
+@media screen and (max-width: 768px) {
+  .header {
+
+    &-search {
       display: none;
     }
-
-    .toggle {
-      display: block;
-    }
-
   }
+
+  .category-sidebar__btn {
+      display: flex;
+  }
+}
+
+
+@media screen and (max-width: 425px) {
+
+  .header-nav__link,
+  .dropdown {
+    display: none;
+  }
+
+  .toggle {
+    display: block;
+  }
+
+}
 

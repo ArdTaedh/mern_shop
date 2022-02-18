@@ -1,6 +1,8 @@
 import axios from "axios";
 
 import {
+    PRODUCT_CATEGORY_LIST_FAIL,
+    PRODUCT_CATEGORY_LIST_REQUEST, PRODUCT_CATEGORY_LIST_SUCCESS,
     PRODUCT_CREATE_FAIL,
     PRODUCT_CREATE_REQUEST, PRODUCT_CREATE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_DELETE_REQUEST, PRODUCT_DELETE_SUCCESS,
     PRODUCT_DETAILS_FAIL,
@@ -12,12 +14,12 @@ import {
 } from "../constants/productConstants";
 import {signout} from "./userActions";
 
-export const listProducts = ({ seller = '', name='' }) => async (dispatch) => {
+export const listProducts = ({ seller = '', name='', category = '' }) => async (dispatch) => {
     dispatch({
         type: PRODUCT_LIST_REQUEST
     })
     try {
-        const { data } = await axios.get(`/api/products?seller=${seller}&name=${name}`)
+        const { data } = await axios.get(`/api/products?seller=${seller}&name=${name}&category=${category}`)
         dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
     } catch (err) {
         const message = err.response && err.response.data.message
@@ -103,5 +105,23 @@ export const deleteProduct = productId => async (dispatch, getState) => {
             ?  err.response.data.message
             :  err.message
         dispatch({ type: PRODUCT_DELETE_FAIL, payload: message })
+    }
+}
+
+export const listProductCategories = () => async (dispatch) => {
+    dispatch({
+        type: PRODUCT_CATEGORY_LIST_REQUEST
+    })
+    try {
+        const { data } = await axios.get(`/api/products/categories`)
+        dispatch({ type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: data })
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message;
+        dispatch({ type: PRODUCT_CATEGORY_LIST_FAIL, payload: message })
+        if(message === 'Недійсний токен') {
+            dispatch(signout())
+        }
     }
 }

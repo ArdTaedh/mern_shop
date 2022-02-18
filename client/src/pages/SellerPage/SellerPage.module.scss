@@ -3,6 +3,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  & :global {
+    .col {
+      flex: none;
+    }
+  }
 }
 
 .seller-container {
@@ -35,11 +41,7 @@
   width: 80%;
 }
 
-:global {
-  .col {
-    flex: none;
-  }
-}
+
 
 .seller-col {
   width: 22%;

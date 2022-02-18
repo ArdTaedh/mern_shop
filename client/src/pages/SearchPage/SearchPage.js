@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {listProducts} from "../../store/actions/productActions";
-import {Link, NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import Product from "../../components/Products/Product";

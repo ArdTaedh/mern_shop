@@ -118,7 +118,7 @@ const SearchPage = (props) => {
                                                                 key={price.name}
                                                             >
                                                                 <NavLink
-                                                                    key={price.max}
+                                                                    key={price.name}
                                                                     activeClassName={classes['price-active']}
                                                                     to={getFilteredUrl({min: price.min, max: price.max})}
                                                                 >
@@ -136,7 +136,6 @@ const SearchPage = (props) => {
                                                         {ratings.map(rating => (
                                                             <li
                                                                 key={rating.name}
-
                                                             >
                                                                 <NavLink
                                                                     key={rating.max}

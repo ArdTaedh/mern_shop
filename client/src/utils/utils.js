@@ -3,7 +3,7 @@ export const prices = [
         name: "Без змін", min: 0, max: 0
     },
     {
-        name: "Від 0 до 100", min: 0, max: 100
+        name: "Від 70 до 200", min: 70, max: 200
     },
     {
         name: "Від 300 до 1000", min: 300, max: 1000

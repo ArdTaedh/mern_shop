@@ -18,13 +18,11 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
     const category = req.query.category || ''
     const categoryFilter = category ? {category} : {}
 
-    const notEqualToZero = Number(req.query.min) !== 0
-
-    const min = req.query.min && notEqualToZero ? Number(req.query.min) : 0
-    const max = req.query.max && notEqualToZero ? Number(req.query.max) : 0
+    const min = req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0
+    const max = req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 0
     const priceFilter = min && max ? { price: {$gte: min, $lte: max } }: {}
 
-    const rating = req.query.rating && notEqualToZero ? Number(req.query.rating) : 0
+    const rating = req.query.rating && Number(req.query.rating) !== 0 ? Number(req.query.rating) : 0
     const ratingFilter = rating ? { rating: {$gte: rating } }: {}
 
     const order = req.query.order || ''

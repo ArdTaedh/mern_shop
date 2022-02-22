@@ -20,7 +20,7 @@ export const listProducts = (
         name='',
         category = '' ,
         min= 0,
-        max= 1000,
+        max= 0,
         rating = 0,
         order = ''
     }

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import {
     productCreateReducer, productDeleteReducer,
     productDetailsReducer, productListCategoriesReducer,
-    productListReducer,
+    productListReducer, productReviewCreateReducer,
     productUpdateReducer
 } from "./reducers/productReducers";
 import {cartReducer} from "./reducers/cartReducers";
@@ -65,7 +65,8 @@ const reducer = combineReducers({
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
     topSellersList: topSellerListReducer,
-    productCategoryList: productListCategoriesReducer
+    productCategoryList: productListCategoriesReducer,
+    productReviewCreate: productReviewCreateReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

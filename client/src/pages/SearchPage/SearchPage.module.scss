@@ -110,4 +110,12 @@
   h3 {
     margin-bottom: 0;
   }
+
+  .sort-actions {
+    justify-content: flex-start;
+
+    & > select {
+      width: 45%;
+    }
+  }
 }

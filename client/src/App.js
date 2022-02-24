@@ -59,7 +59,7 @@ const App = () => {
                     <AdminRoute exact path="/user/:id/edit" component={UserEditPage}/>
                     <SellerRoute exact path="/product-list/seller" component={ProductListPage} />
                     <SellerRoute path="/order-list/seller" component={OrderListPage}/>
-                    <SellerRoute exact path="/seller/:id" component={SellerPage}/>
+                    <Route exact path="/seller/:id" component={SellerPage}/>
                     <Route exact path="/search/name/:name?" component={SearchPage} />
                     <Route exact path="/search/category/:category" component={SearchPage} />
                     {/*<Route exact path="/search/category/:category/name/:name" component={SearchPage} />*/}

@@ -1,6 +1,7 @@
 import {
     PRODUCT_CATEGORY_LIST_FAIL,
-    PRODUCT_CATEGORY_LIST_REQUEST, PRODUCT_CATEGORY_LIST_SUCCESS,
+    PRODUCT_CATEGORY_LIST_REQUEST,
+    PRODUCT_CATEGORY_LIST_SUCCESS,
     PRODUCT_CREATE_FAIL,
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_SUCCESS,
@@ -14,6 +15,10 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
+    PRODUCT_REVIEW_CREATE_FAIL,
+    PRODUCT_REVIEW_CREATE_REQUEST,
+    PRODUCT_REVIEW_CREATE_SUCCESS,
+    PRODUCT_REVIEW_RESET,
     PRODUCT_UPDATE_FAIL,
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_RESET,
@@ -97,6 +102,21 @@ export const productListCategoriesReducer = (state = { loading: true, products: 
             return { loading: false, categories: action.payload }
         case PRODUCT_CATEGORY_LIST_FAIL:
             return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+export const productReviewCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case PRODUCT_REVIEW_CREATE_REQUEST:
+            return { loading: true }
+        case PRODUCT_REVIEW_CREATE_SUCCESS:
+            return { loading: false, success: true, review: action.payload }
+        case PRODUCT_REVIEW_CREATE_FAIL:
+            return { loading: false, error: action.payload }
+        case PRODUCT_REVIEW_RESET:
+            return {}
         default:
             return state
     }

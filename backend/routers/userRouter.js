@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import User from "../models/userModel.js";
 import data from "../data.js";
 import {generateToken, isAdmin, isAuth} from "../utils.js";
+import Product from "../models/productModel.js";
+import productRouter from "./productRouter.js";
 
 const userRouter = express.Router()
 
@@ -124,6 +126,34 @@ userRouter.put('/:id', isAuth, expressAsyncHandler(async (req, res) => {
         res.send({message: "Користувача було змінено", user: updatedUser})
     } else {
         res.status(404).send({message: "Користувача не знайдено"})
+    }
+}))
+
+userRouter.post('/:id/reviews', isAuth, expressAsyncHandler(async (req, res) => {
+    const sellerId = req.params.id
+    const seller = await User.findById(sellerId)
+
+    if (seller) {
+        if (seller.seller.reviews.find(x => x.name === req.user.name)) {
+            return res.status(400).send({ message: "Ви вже залишали відгук"})
+        }
+
+        if (sellerId === seller.seller.reviews._id) {
+            return res.status(400).send({ message: "Не можна коментувати самого себе" })
+        }
+
+        const review = { name: req.user.name, rating: Number(req.body.rating), comment: req.body.comment }
+
+        seller.seller.reviews.push(review)
+
+        seller.seller.numReviews = seller.seller.reviews.length
+
+        seller.seller.rating = seller.seller.reviews.reduce((a, c) => c.rating + a, 0) / seller.seller.reviews.length;
+
+        const updatedSellerReviews = await seller.save()
+        res.status(201).send({message: "Відгук залишено успішно", review: updatedSellerReviews.seller.reviews[updatedSellerReviews.seller.reviews.length - 1] })
+    } else {
+        res.status(404).send({message: 'Помилка при створенні відгуку'})
     }
 }))
 

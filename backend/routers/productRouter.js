@@ -131,7 +131,8 @@ productRouter.post('/:id/reviews', isAuth, expressAsyncHandler(async (req, res) 
         product.reviews.push(review)
 
         product.numReviews = product.reviews.length
-        const rating = product.rating - product.reviews.reduce((a, c) => c.rating + a, 0) / product.reviews.length
+
+        product.rating = product.reviews.reduce((a, c) => c.rating + a, 0) / product.reviews.length;
 
         const updatedProduct = await product.save()
         res.status(201).send({message: "Відгук залишено успішно", review: updatedProduct.reviews[updatedProduct.reviews.length - 1] })

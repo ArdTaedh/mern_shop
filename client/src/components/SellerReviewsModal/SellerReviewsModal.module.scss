@@ -1,0 +1,42 @@
+.review-form__wrapper {
+  width: 55%;
+  margin: 1rem auto;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  & > h3 {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-detail__wrapper {
+    flex-direction: column;
+  }
+
+  .product-description {
+    margin-top: 1rem;
+  }
+
+  .photo-col {
+    width: 100%;
+  }
+
+  .review-form__wrapper {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .product-img {
+    width: 100%;
+  }
+
+  .review-form__wrapper {
+    width: 85%;
+  }
+}

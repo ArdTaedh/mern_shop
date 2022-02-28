@@ -145,7 +145,7 @@ export const listProductCategories = () => async (dispatch) => {
     }
 }
 
-export const createReview = (productId, review) => async (dispatch, getState) => {
+export const createProductReview = (productId, review) => async (dispatch, getState) => {
     dispatch({ type: PRODUCT_REVIEW_CREATE_REQUEST })
     const { userSignin: { userInfo } } = getState()
 

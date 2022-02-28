@@ -9,7 +9,7 @@ import Footer from "../../components/Footer/Footer";
 import Rating from "../../components/Rating/Rating";
 import Loading from "../../components/Loading/Loading";
 import MessageBox from "../../components/MessageBox/MessageBox";
-import {createReview, detailsProduct} from "../../store/actions/productActions";
+import {createProductReview, detailsProduct} from "../../store/actions/productActions";
 import {Helmet} from "react-helmet";
 import {Link} from "react-router-dom"
 import {PRODUCT_REVIEW_RESET} from "../../store/constants/productConstants";
@@ -52,7 +52,7 @@ const ProductPage = (props) => {
         e.preventDefault()
 
         if (comment && rating) {
-            dispatch(createReview(productId, {rating, comment, name: userInfo.name}))
+            dispatch(createProductReview(productId, {rating, comment, name: userInfo.name}))
         } else {
             alert("Будь ласка заповніть форму відгуку")
         }

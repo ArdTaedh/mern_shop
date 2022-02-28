@@ -1,4 +1,6 @@
 import {
+    SELLER_REVIEW_CREATE_FAIL,
+    SELLER_REVIEW_CREATE_REQUEST, SELLER_REVIEW_CREATE_SUCCESS,
     USER_CHECK_FAIL,
     USER_CHECK_REQUEST,
     USER_CHECK_SUCCESS,
@@ -13,7 +15,7 @@ import {
     USER_LIST_SUCCESS,
     USER_LOGOUT,
     USER_REGISTER_FAIL,
-    USER_REGISTER_SUCCESS,
+    USER_REGISTER_SUCCESS, USER_SELLER_CHECK_INFO_FAIL, USER_SELLER_CHECK_INFO_REQUEST, USER_SELLER_CHECK_INFO_SUCCESS,
     USER_SIGNIN_FAIL,
     USER_SIGNIN_REQUEST,
     USER_SIGNIN_SUCCESS,
@@ -234,5 +236,50 @@ export const topSellersList = () => async (dispatch) => {
             ? err.response.data.message
             : err.message
         dispatch({ type: USER_TOPSELLERS_LIST_FAIL, payload: message })
+    }
+}
+
+export const getUserSellerInfo = (userId) => async (dispatch) => {
+    dispatch({type: USER_SELLER_CHECK_INFO_REQUEST, payload: userId})
+
+    try {
+        const {data} = await axios.get(`/api/users/${userId}`)
+        dispatch({type: USER_SELLER_CHECK_INFO_SUCCESS, payload: data})
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ? err.response.data.message
+            : err.message
+        dispatch({
+            type: USER_SELLER_CHECK_INFO_FAIL,
+            payload: message
+        })
+        if (message === 'Недійсний токен') {
+            dispatch(signout())
+        }
+    }
+}
+
+export const createSellertReview = (sellerId, userId, review) => async (dispatch, getState) => {
+    dispatch({ type: SELLER_REVIEW_CREATE_REQUEST })
+    const { userSignin: { userInfo } } = getState()
+
+    try {
+        if (sellerId === userId) {
+            dispatch({ type: SELLER_REVIEW_CREATE_FAIL, payload: "Не можна коментувати самого себе" })
+        } else {
+            const { data } = await axios.post(`/api/users/${sellerId}/reviews`, review, {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            })
+
+            dispatch({ type: SELLER_REVIEW_CREATE_SUCCESS, payload: data.review })
+        }
+
+    } catch (err) {
+        const message = err.response && err.response.data.message
+            ?  err.response.data.message
+            :  err.message
+        dispatch({ type: SELLER_REVIEW_CREATE_FAIL, payload: message })
     }
 }

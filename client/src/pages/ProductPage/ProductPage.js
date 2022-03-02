@@ -154,13 +154,13 @@ const ProductPage = (props) => {
                                                     >
                                                         {review.name}
                                                     </h4>
+                                                    <p className="review-time__created" style={{marginBottom: "0.4rem"}}>
+                                                        {moment(review.createdAt.substr(0, 10)).format("DD-MM-YYYY")}
+                                                    </p>
                                                     <Rating
                                                         rating={review.rating}
                                                         caption=" "
                                                     />
-                                                    <p className="review-time__created" style={{marginBottom: "0.4rem"}}>
-                                                        {moment(review.createdAt.substr(0, 10)).format("DD-MM-YYYY")}
-                                                    </p>
                                                     <p className="comment">
                                                         {review.comment}
                                                     </p>

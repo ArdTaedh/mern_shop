@@ -1,0 +1,89 @@
+.dashboard {
+  &-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &-container {
+    height: 100%;
+    margin: 1rem auto;
+  }
+
+  &-wrapper__row {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    gap: 1rem;
+
+    & :global {
+      .card {
+        width: 30%;
+      }
+
+      .card-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &-info__first {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+.dashboard-users {
+  & :global {
+    .card-header {
+      background-color: #CFFFB0;
+    }
+  }
+}
+
+.dashboard-orders {
+  & :global {
+    .card-header {
+      background-color: #B6DCFE;
+    }
+  }
+}
+
+.dashboard-sales {
+  & :global {
+    .card-header {
+      background-color: #FFDDAD;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .dashboard {
+    &-info__first {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    &-wrapper__row {
+      & :global {
+        .card {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

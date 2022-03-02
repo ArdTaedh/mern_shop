@@ -28,6 +28,7 @@ import SellerPage from "./pages/SellerPage/SellerPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import {useDispatch} from "react-redux";
 import {listProductCategories} from "./store/actions/productActions";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 const App = () => {
 
@@ -53,11 +54,17 @@ const App = () => {
                     <Route exact path="/orders" component={OrderHistoryPage}/>
                     <PrivateRoute exact path="/profile" component={ProfilePage}/>
                     <AdminRoute exact path="/product-list" component={ProductListPage}/>
+                    <SellerRoute
+                        exact
+                        path="/product-list/seller"
+                        component={ProductListPage}
+                    />
                     <Route exact path="/product/:id/edit" component={ProductEditPage}/>
                     <AdminRoute exact path="/order-list" component={OrderListPage}/>
                     <AdminRoute exact path="/user-list" component={UserListPage}/>
                     <AdminRoute exact path="/user/:id/edit" component={UserEditPage}/>
-                    <SellerRoute exact path="/product-list/seller" component={ProductListPage} />
+                    <AdminRoute exact path="/order-list" component={OrderListPage}/>
+                    <SellerRoute exact path="/dashboard" component={DashboardPage} />
                     <SellerRoute path="/order-list/seller" component={OrderListPage}/>
                     <Route exact path="/seller/:id" component={SellerPage}/>
                     <Route exact path="/search/name/:name?" component={SearchPage} />

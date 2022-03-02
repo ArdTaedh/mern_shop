@@ -22,7 +22,7 @@ import {
     orderListReducer,
     orderMineListReducer,
     orderPayReducer,
-    orderReducers
+    orderReducers, orderSummaryReducer
 } from "./reducers/orderReducers";
 
 const initialState = {
@@ -68,7 +68,8 @@ const reducer = combineReducers({
     productCategoryList: productListCategoriesReducer,
     productReviewCreate: productReviewCreateReducer,
     userSellerCheckInfo: userSellerDetailsReducer,
-    sellerReviewCreate: userSellerReviewCreateReducer
+    sellerReviewCreate: userSellerReviewCreateReducer,
+    orderSummary: orderSummaryReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

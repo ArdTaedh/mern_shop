@@ -210,7 +210,7 @@ const OrderPage = (props) => {
                                                                 </span>
                                                         </div>
                                                         {
-                                                            !order.isPaid && (
+                                                            !order.isPaid && order.paymentMethod === "Paypal" && (
                                                                 <div className={classes["pay-order"]}>
                                                                     {
                                                                         !paypalSDKReady
@@ -229,6 +229,9 @@ const OrderPage = (props) => {
                                                                     }
                                                                 </div>
                                                             )
+                                                        }
+                                                        {
+
                                                         }
                                                         {
                                                             userInfo.isAdmin && order.isPaid && !order.isDelivered && (

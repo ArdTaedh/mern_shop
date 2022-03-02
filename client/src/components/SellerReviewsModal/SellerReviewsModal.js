@@ -13,9 +13,6 @@ import classes from './SellerReviewsModal.module.scss'
 const SellerReviewsModal = ({show, hide, sellerId}) => {
     const dispatch = useDispatch()
 
-    const userDetails = useSelector(state => state.userDetails)
-    const {loading, error, user} = userDetails
-
     const sellerInfo = useSelector(state => state.userSellerCheckInfo)
     const {loading: loadingSeller, error: errorSeller, user: sellerUser} = sellerInfo
 
@@ -79,13 +76,13 @@ const SellerReviewsModal = ({show, hide, sellerId}) => {
                                                 >
                                                     {review.name}
                                                 </h4>
+                                                <p className="review-time__created" style={{marginBottom: "0.4rem"}}>
+                                                    {moment(review.createdAt.substr(0, 10)).format("DD-MM-YYYY")}
+                                                </p>
                                                 <Rating
                                                     rating={review.rating}
                                                     caption=" "
                                                 />
-                                                <p className="review-time__created" style={{marginBottom: "0.4rem"}}>
-                                                    {moment(review.createdAt.substr(0, 10)).format("DD-MM-YYYY")}
-                                                </p>
                                                 <p className="comment">
                                                     {review.comment}
                                                 </p>
@@ -148,14 +145,6 @@ const SellerReviewsModal = ({show, hide, sellerId}) => {
                 }
 
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={hide}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={hide}>
-                    Save Changes
-                </Button>
-            </Modal.Footer>
         </Modal>
     );
 };

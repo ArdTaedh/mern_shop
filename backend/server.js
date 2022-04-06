@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 
 const __dirname = path.resolve()
 
-const uri = "mongodb+srv://admin:admin@e-store.ljb4w.mongodb.net/estore?retryWrites=true&w=majority"
+const uri = process.env.MONGO_URI
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
